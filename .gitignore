@@ -1,0 +1,10 @@
+# 密钥文件 - 绝不提交
+.env
+*.env
+.env.*
+!.env.example
+
+# 临时文件
+*.tmp
+__pycache__/
+*.pyc

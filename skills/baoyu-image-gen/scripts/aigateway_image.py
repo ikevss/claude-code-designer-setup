@@ -8,7 +8,7 @@ GPT Image 2 生图脚本 — aigateway.edgecloudapp.com
 
 | 项目 | 值 |
 |------|-----|
-| 网关 URL | https://aigateway.edgecloudapp.com/v1/1109fb65f197b62babfa3f56c0cf7cbc/gpt |
+| 网关 URL | https://aigateway.edgecloudapp.com/v1/YOUR_GATEWAY_ID/gpt |
 | 文生图 | POST {base}/images/generations |
 | 参考图生图 | POST {base}/images/edits |
 | Content-Type | application/json（不支持 multipart） |
@@ -57,8 +57,8 @@ except ImportError:
     print("需要安装 Pillow: pip install Pillow", file=sys.stderr)
     sys.exit(1)
 
-API_KEY = "eyJ2ZXIiOiIyMDI2IiwicHJtIjoiYXBwLTEiLCJleHAiOjE4MTY4NzY4MDAsImlhdCI6MTc4NTQwMzkxMywiYWlkIjoiMTAwNjE0NzAiLCJqdGkiOiIyMTkxIn0.lZ_Fmv_zkwM0P76Q52QpkDaRBOUr00nL7VYNBV9gHKRgcAgsqjZ1xmNxjwOxLoCsc8XCMzO8WkS7psGmHQLemQ"
-BASE_URL = "https://aigateway.edgecloudapp.com/v1/1109fb65f197b62babfa3f56c0cf7cbc/gpt"
+API_KEY = "your-aigateway-jwt-token-here"
+BASE_URL = "https://aigateway.edgecloudapp.com/v1/YOUR_GATEWAY_ID/gpt"
 MODEL = "gpt-image-2"
 MAX_RETRIES = 3
 RETRY_DELAY = 5

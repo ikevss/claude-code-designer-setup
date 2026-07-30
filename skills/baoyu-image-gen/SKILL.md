@@ -154,7 +154,7 @@ When the user wants a person/object preserved from reference images:
 | `--image <path>` | Output image path (required in single-image mode) |
 | `--batchfile <path>` | JSON batch file for multi-image generation |
 | `--jobs <count>` | Worker count for batch mode (default: auto, max from config, built-in default 10) |
-| `--provider google\|openai\|azure\|openrouter\|dashscope\|zai\|minimax\|jimeng\|seedream\|replicate\|codex-cli\|agnes\|airrouter` | Force provider (default: auto-detect; `codex-cli` and `airrouter` are never auto-selected — must be pinned via CLI or EXTEND.md) |
+| `--provider google\|openai\|azure\|openrouter\|dashscope\|zai\|minimax\|jimeng\|seedream\|replicate\|codex-cli\|agnes\|aigateway` | Force provider (default: auto-detect; `codex-cli` and `aigateway` are never auto-selected — must be pinned via CLI or EXTEND.md) |
 | `--model <id>`, `-m` | Model ID — see provider references for defaults and allowed values |
 | `--ar <ratio>` | Aspect ratio (`16:9`, `1:1`, `4:3`, …) |
 | `--size <WxH>` | Explicit size (e.g., `1024x1024`; for `gpt-image-2`, width/height must be multiples of 16, max edge 3840px, ratio no wider than 3:1) |
@@ -179,9 +179,9 @@ When the user wants a person/object preserved from reference images:
 | `REPLICATE_API_TOKEN` | Replicate API token |
 | `JIMENG_ACCESS_KEY_ID`, `JIMENG_SECRET_ACCESS_KEY` | Jimeng (即梦) Volcengine credentials |
 | `ARK_API_KEY` | Seedream (豆包) Volcengine ARK API key |
-| `AIRROUTER_IMAGE_API_KEY` | airrouter 网关 API Key（`gpt-image-2-plus`） |
-| `AIRROUTER_IMAGE_API_URL` | airouter 网关端点（默认 `https://airouter.cloud/v1/chat/completions`） |
-| `<PROVIDER>_IMAGE_MODEL` | Per-provider model override (`OPENAI_IMAGE_MODEL`, `GOOGLE_IMAGE_MODEL`, `DASHSCOPE_IMAGE_MODEL`, `ZAI_IMAGE_MODEL`/`BIGMODEL_IMAGE_MODEL`, `MINIMAX_IMAGE_MODEL`, `OPENROUTER_IMAGE_MODEL`, `REPLICATE_IMAGE_MODEL`, `JIMENG_IMAGE_MODEL`, `SEEDREAM_IMAGE_MODEL`, `AGNES_IMAGE_MODEL`, `AIRROUTER_IMAGE_MODEL`) |
+| `AIGATEWAY_IMAGE_API_KEY` | aigateway 网关 API Key（`gpt-image-2`） |
+| `AIGATEWAY_IMAGE_API_URL` | aigateway 网关端点（默认 `https://aigateway.edgecloudapp.com/v1/YOUR_GATEWAY_ID/gpt`） |
+| `<PROVIDER>_IMAGE_MODEL` | Per-provider model override (`OPENAI_IMAGE_MODEL`, `GOOGLE_IMAGE_MODEL`, `DASHSCOPE_IMAGE_MODEL`, `ZAI_IMAGE_MODEL`/`BIGMODEL_IMAGE_MODEL`, `MINIMAX_IMAGE_MODEL`, `OPENROUTER_IMAGE_MODEL`, `REPLICATE_IMAGE_MODEL`, `JIMENG_IMAGE_MODEL`, `SEEDREAM_IMAGE_MODEL`, `AGNES_IMAGE_MODEL`, `AIGATEWAY_IMAGE_MODEL`) |
 | `AZURE_OPENAI_DEPLOYMENT` (alias `AZURE_OPENAI_IMAGE_MODEL`) | Azure default deployment |
 | `<PROVIDER>_BASE_URL` | Per-provider endpoint override |
 | `AZURE_API_VERSION` | Azure image API version (default `2025-04-01-preview`) |
@@ -253,12 +253,12 @@ Each provider has its own quirks (model families, size rules, ref support, limit
 | Replicate (nano-banana, Seedream, Wan) | `references/providers/replicate.md` |
 | Codex CLI (wraps bundled `scripts/codex-imagegen/`; Codex login, no `OPENAI_API_KEY`) | `references/providers/codex-cli.md` |
 | Agnes (agnes-image-2.1-flash, reference-image support) | `references/providers/agnes.md` |
-| airrouter (gpt-image-2-plus, Chat-Completions 协议, 支持参考图) | 使用 `scripts/airrouter_image.py`；端点 `https://airouter.cloud/v1/chat/completions`；图片以 data-URI 嵌在 `choices[0].message.content` 返回 |
+| aigateway (gpt-image-2, 文生图 + 参考图生图, 走 images/edits JSON) | 完整文档见 WPS 笔记 "GPT 生图 API — 速查手册"；脚本已内嵌在笔记第八章 |
 
 ## Provider Selection
 
 1. `--ref` provided + no `--provider` → auto-select Google → OpenAI → Azure → OpenRouter → Replicate → Seedream → MiniMax → Agnes (MiniMax's subject reference is more specialized toward character/portrait consistency)
-2. `--provider` specified → use it (if `--ref`, must be google/openai/azure/openrouter/replicate/seedream/minimax/codex-cli/agnes/airrouter)
+2. `--provider` specified → use it (if `--ref`, must be google/openai/azure/openrouter/replicate/seedream/minimax/codex-cli/agnes/aigateway)
 3. Only one API key present → use that provider
 4. Multiple keys → default priority: Google → OpenAI → Azure → OpenRouter → DashScope → Z.AI → MiniMax → Replicate → Jimeng → Seedream → Agnes
 5. `codex-cli` is **never auto-selected** — set `default_provider: codex-cli` in EXTEND.md or pass `--provider codex-cli`. It spawns `codex exec` via the bundled `scripts/codex-imagegen/main.ts` TS entrypoint (run with `bun`) and uses the user's Codex subscription (no `OPENAI_API_KEY`). Requires `codex` on `PATH` with an active `codex login`.

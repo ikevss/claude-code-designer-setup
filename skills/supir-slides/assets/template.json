@@ -1,0 +1,221 @@
+{
+  "id": "builtin_pptx_reference_default",
+  "display_name": "Builtin PPTX Reference Default",
+  "description": "Default visual references captured from the provided PPTX template. Use as style references; legacy template text/data are not reusable content. Alpha/PaiWork marks are template brand elements and should be retained by default unless the user asks to remove or replace them.",
+  "assets": {
+    "brand_assets": {
+      "logo_primary": "brand_assets/logo_primary.png",
+      "footer_brand_mark": "brand_assets/footer_brand_mark.png"
+    },
+    "selected_refs": {
+      "cover": "pptx-slide-01-cover.png",
+      "toc": "pptx-slide-02-contents.png",
+      "section": "pptx-slide-03-section.png",
+      "content": "pptx-slide-04-title-page.png",
+      "closing": "pptx-slide-04-title-page.png"
+    }
+  },
+  "palette": {
+    "deep_indigo": "#01105C",
+    "dark_blue": "#0C30A8",
+    "bright_blue": "#2A66F6",
+    "light_blue": "#7DADFF",
+    "pale_blue": "#CFE4FF",
+    "inner_background_start": "#EAF3FF",
+    "inner_background_end": "#FFFFFF",
+    "coral_red": "#EF404A",
+    "neutral_surface": "#F4F5F6",
+    "neutral_gray": "#5F6670"
+  },
+  "typography": {
+    "chinese": "Source Han Sans SC / 思源黑体 compact sans; fall back to Noto Sans CJK SC or equivalent clear system CJK sans",
+    "latin": "Helvetica/Arial/Inter-like compact sans",
+    "cover": "large white bold sans on deep-blue background",
+    "content_title": "deep-indigo bold sans, about 22-26pt equivalent; long titles may be smaller",
+    "body": "compact readable sans, about 12.5-15pt equivalent"
+  },
+  "page_role_map": {
+    "cover": "pptx-slide-01-cover.png",
+    "toc": "pptx-slide-02-contents.png",
+    "contents": "pptx-slide-02-contents.png",
+    "agenda": "pptx-slide-02-contents.png",
+    "section": "pptx-slide-03-section.png",
+    "chapter": "pptx-slide-03-section.png",
+    "section_divider": "pptx-slide-03-section.png",
+    "closing": "pptx-slide-04-title-page.png",
+    "end": "pptx-slide-04-title-page.png",
+    "thanks": "pptx-slide-04-title-page.png",
+    "disclaimer": "pptx-slide-04-title-page.png",
+    "title_page": "pptx-slide-04-title-page.png",
+    "content": "pptx-slide-04-title-page.png",
+    "content_text": "pptx-slide-04-title-page.png",
+    "content_diagram": "pptx-slide-04-title-page.png",
+    "diagram": "pptx-slide-04-title-page.png",
+    "content_chart": "pptx-slide-04-title-page.png",
+    "content_table": "pptx-slide-04-title-page.png",
+    "chart_evidence": "pptx-slide-04-title-page.png",
+    "evidence": "pptx-slide-04-title-page.png"
+  },
+  "canonical_page_roles": [
+    "cover",
+    "toc",
+    "section",
+    "content",
+    "closing"
+  ],
+  "page_role_aliases": {
+    "contents": "toc",
+    "agenda": "toc",
+    "chapter": "section",
+    "section_divider": "section",
+    "title_page": "content",
+    "content_text": "content",
+    "content_chart": "content",
+    "content_table": "content",
+    "content_diagram": "content",
+    "diagram": "content",
+    "evidence": "content",
+    "chart_evidence": "content",
+    "end": "closing",
+    "thanks": "closing",
+    "disclaimer": "closing"
+  },
+  "style_layer": {
+    "canonical_page_roles": [
+      "cover",
+      "toc",
+      "section",
+      "content",
+      "closing"
+    ],
+    "page_role_aliases": {
+      "contents": "toc",
+      "agenda": "toc",
+      "chapter": "section",
+      "section_divider": "section",
+      "title_page": "content",
+      "content_text": "content",
+      "content_chart": "content",
+      "content_table": "content",
+      "content_diagram": "content",
+      "diagram": "content",
+      "evidence": "content",
+      "chart_evidence": "content",
+      "end": "closing",
+      "thanks": "closing",
+      "disclaimer": "closing"
+    },
+    "page_role_map": {
+      "cover": "pptx-slide-01-cover.png",
+      "toc": "pptx-slide-02-contents.png",
+      "contents": "pptx-slide-02-contents.png",
+      "agenda": "pptx-slide-02-contents.png",
+      "section": "pptx-slide-03-section.png",
+      "chapter": "pptx-slide-03-section.png",
+      "section_divider": "pptx-slide-03-section.png",
+      "closing": "pptx-slide-04-title-page.png",
+      "end": "pptx-slide-04-title-page.png",
+      "thanks": "pptx-slide-04-title-page.png",
+      "disclaimer": "pptx-slide-04-title-page.png",
+      "title_page": "pptx-slide-04-title-page.png",
+      "content": "pptx-slide-04-title-page.png",
+      "content_text": "pptx-slide-04-title-page.png",
+      "content_diagram": "pptx-slide-04-title-page.png",
+      "diagram": "pptx-slide-04-title-page.png",
+      "content_chart": "pptx-slide-04-title-page.png",
+      "content_table": "pptx-slide-04-title-page.png",
+      "chart_evidence": "pptx-slide-04-title-page.png",
+      "evidence": "pptx-slide-04-title-page.png"
+    },
+    "brand_elements": [
+      {
+        "kind": "logo",
+        "asset": "brand_assets/logo_primary.png",
+        "source_page_role": "cover",
+        "source_page": 1,
+        "bbox_px": [92, 96, 615, 166],
+        "padded_bbox_px": [84, 88, 623, 174],
+        "position": "top-left",
+        "size_ratio": "about 28% slide width",
+        "visible_text": "Alpha派 · PaiWork",
+        "identity": "template_brand",
+        "source": "vision_crop",
+        "retain_policy": "retain_by_default",
+        "confidence": 0.96
+      },
+      {
+        "kind": "footer_brand_mark",
+        "asset": "brand_assets/footer_brand_mark.png",
+        "source_page_role": "toc",
+        "source_page": 2,
+        "bbox_px": [1480, 982, 1835, 1015],
+        "padded_bbox_px": [1472, 974, 1843, 1023],
+        "position": "bottom-right",
+        "size_ratio": "about 19% slide width",
+        "visible_text": "Alpha派 · PaiWork",
+        "identity": "template_brand",
+        "source": "vision_crop",
+        "retain_policy": "retain_by_default",
+        "confidence": 0.9
+      }
+    ],
+    "brand_policy": {
+      "default": "retain_template_brand",
+      "user_override": ["remove", "replace"],
+      "do_not_reuse_as_content": ["old titles", "old dates", "old source notes"]
+    },
+    "typography_tone": "modern compact sans",
+    "typography_signature": {
+      "cover_title": "Source Han Sans SC / 思源黑体-like bold compact sans, large white title on deep-blue background",
+      "section_title": "Source Han Sans SC / 思源黑体-like bold compact sans, large section title",
+      "page_title": "Source Han Sans SC / 思源黑体-like bold deep-indigo conclusion title, about 22-26pt equivalent; long titles may be smaller",
+      "body": "Source Han Sans SC / 思源黑体-like compact readable sans, about 12.5-15pt equivalent",
+      "chart_axis_label": "compact readable sans, about 11-13.5pt equivalent",
+      "table_cell": "compact readable sans with tabular numerals, about 11-13.5pt equivalent",
+      "caption_source_note": "smallest readable sans, about 8.5-10.5pt equivalent",
+      "avoid_substitution": "preserve this compact sans hierarchy unless the user template provides a distinctive display font"
+    },
+    "typography_hierarchy": {
+      "cover_title": "largest_consistent_title_scale",
+      "section_title": "large_section_scale",
+      "page_title": "consistent_conclusion_title_scale",
+      "subtitle": "smaller_than_page_title",
+      "body": "readable_main_text_scale",
+      "chart_axis_label": "compact_but_readable",
+      "table_cell": "compact_readable_with_tabular_numerals",
+      "caption_source_note": "smallest_readable_scale"
+    }
+  },
+  "content_layer": {
+    "deck_type": "institutional_research_default",
+    "framework": [],
+    "writing_style": "",
+    "content_expression_signature": {
+      "headline_pattern": "conclusion-first titles",
+      "body_rhythm": "1-3 analytical paragraphs or 2-4 substantive bullets for ordinary content pages; do not use oversized body type to reduce content into slogans",
+      "module_semantics": "open-grid viewpoint plus evidence structure; cards only for true modules",
+      "chart_narration_pattern": "evidence supports the page claim with concise provider-level source notes",
+      "summary_or_transition_pattern": "cover/title pages stay spacious and do not include KPI strips, three-metric rows, or evidence summaries unless explicitly requested or the selected reference template cover clearly uses that metric-summary design; toc, section, and closing pages adapt role without forcing evidence charts"
+    },
+    "page_slot_map": {
+      "cover": [],
+      "toc": [],
+      "section": [],
+      "content": [],
+      "closing": []
+    },
+    "content_reuse_risk": "style_reference_only"
+  },
+  "reuse_policy": {
+    "default": "style_only",
+    "brand_policy": "Alpha/PaiWork template brand marks should be retained by default unless the user asks to remove or replace them.",
+    "never_reuse_as_content": [
+      "old placeholder text",
+      "dates",
+      "old source notes",
+      "old titles",
+      "old body text",
+      "sample chart values"
+    ]
+  }
+}
