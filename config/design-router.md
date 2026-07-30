@@ -128,3 +128,16 @@
 3. **插图生成默认用 baoyu-image-gen**（多厂商覆盖面最广），特定风格时按表路由（橙线→orange-line-illustration，Gemini 多轮→gemini-web）
 4. **GSAP 优先用 gsap-web**：高层封装满足大多数场景；需要精细控制时才下沉到 gsap-core/timeline
 5. **idesign 管 UI 设计，本表管动效+视觉创建**：不重叠，但可串联（idesign 说"这里需要动效"→ motion-design 给方案 → gsap-web 实现）
+
+---
+
+## 开箱分发
+
+设计师开箱包已打包发布到 GitHub，新电脑一键安装：
+
+```bash
+git clone https://github.com/ikevss/claude-code-designer-setup ~/claude-designer
+cd ~/claude-designer && bash designer-setup.sh
+```
+
+离线备用包：`~/designer-setup-2026-07-30.tar.gz` (71 MB)
