@@ -1,0 +1,266 @@
+@RTK.md
+
+## 多智能体编排（默认开启）
+
+复杂任务（涉及 3+ 独立维度或 5+ 文件、需要对抗性验证、大规模审查/迁移/审计）**默认使用 Workflow 编排**，包括 pipeline 并行推进 + 对抗性验证 + 结果合成，无需用户每次授权。简单任务、单步查询仍用最直接的方式。
+
+***
+
+## 交付清单（任务完成后强制执行）
+
+任何非纯问答任务完成后，必须输出以下清单：
+
+* [ ] 产出物路径（创建/修改了哪些文件）
+
+* [ ] 验证证据（build/test/lint/curl 任一实测输出）
+
+* [ ] 已知风险（未覆盖场景、边界限制）
+
+* [ ] 后续建议（如有）
+
+**格式要求**：用"✅ 完成 X，验证结果 Y"的证据化语言，不用"应该没问题"之类的模糊表述。
+
+***
+
+## 失败升级机制
+
+| 级别 | 触发条件         | 行动                                       |
+| -- | ------------ | ---------------------------------------- |
+| L1 | 首次失败         | 自动重试，调整方案                                |
+| L2 | 同一问题第 2 次失败  | 停止重试。输出 ⚠️ 结构化报告：失败原因 + 备选方案 A/B/C，请用户决策 |
+| L3 | 同一问题第 3 次+失败 | 不再继续。输出 ❌ 完整诊断 + 降级路径，请用户接管              |
+
+**核心原则**：沉默循环式重试是最大的 token 浪费。第 2 次失败说明方向可能有问题，此时切换为"汇报+建议"模式，而非继续死磕。
+
+***
+
+## 高风险操作例外
+
+以下操作执行前必须停顿确认（说明影响范围，等待用户回复后再执行）：
+
+```
+rm -rf、DROP TABLE、DELETE FROM、git push --force、chmod 777
+格式化磁盘、修改系统级配置、在生产环境直接操作数据库
+```
+
+***
+
+## 文档输出规则
+
+### 触发条件
+
+仅在以下情况输出文档文件，普通对话用简洁正文即可：
+
+* 用户明确要求生成报告/方案/诊断/分析/调研等文档
+
+* 需要为长任务（>3 步或 >30 分钟）输出执行计划时
+
+### 默认格式：HTML（浅色主题）
+
+* 报告、方案、分析等文档默认以 HTML 格式输出
+
+* 默认浅色主题（白色背景 `#fff`，深色文字 `#1f2937`），适合阅读和打印
+
+* 仅当用户明确要求 Markdown/PDF/Word 等格式时使用对应格式
+
+### 渐进式视觉规范
+
+HTML 文档按以下优先级渐进应用视觉设计，不一次性堆砌所有细节：
+
+**第一层（每次必用）**：
+
+* 内容分三级：首要（用户 3 秒内必须看到的）→ 次要 → 第三层
+
+* 排版层级：h1 2rem 加粗 / h2 1.4rem 加粗+底边线 / h3 1.1rem / 正文 0.95rem 行高 1.7
+
+* 每个独立主题用卡片包裹（圆角 12px、内边距 24px、浅灰背景 `#f8f9fa`、边框 `#e5e7eb`）
+
+**第二层（数据/对比类内容时加）**：
+
+* 表格、评分条、标签徽章用纯 CSS 实现
+
+* 数字对比：大号数字 (1.8rem) + 小号标签 (0.8rem)
+
+* 语义色：红=致命 `#dc2626` / 橙=警告 `#d97706` / 蓝=注意 `#2563eb` / 绿=正常 `#16a34a`
+
+**第三层（长文档需要导航时加）**：
+
+* 移动端响应：768px 以下卡片全宽堆叠
+
+* 间距节奏：8px 基准（8/16/24/32/48）
+
+* 详细色板参考 `~/.config/opencode/context/core/standards/visual-design.md`
+
+### 操作流程
+
+1. 在项目 `docs/` 目录下创建文件（文件名含日期，如 `docs/报告名-2026-06-05.html`）
+2. 写入完整内容后，执行 `start "" "文件完整路径"` 自动用默认程序打开
+3. 对话中只给简短摘要，详细内容让用户看打开的文档
+
+***
+
+## 文档留存体系
+
+所有产出文档按三层分类存放：
+
+| 层级 | 目录             | 说明                     |
+| -- | -------------- | ---------------------- |
+| 临时 | `docs/.tmp/`   | 一次性分析、调试日志，任务完成后可清理    |
+| 过程 | `docs/`        | 计划、方案、检查清单、验收报告，项目期间保留 |
+| 持久 | `context/`（如有） | 跨项目标准、技术决策             |
+
+命名规范：`docs/{类型}-{主题}-{日期}.md`，如 `docs/方案-登录模块-2026-06-10.md`
+
+***
+
+## 语言规则
+
+所有回复、分析、解释、建议默认使用中文，尽量用非编程人员能理解的表达。代码本身保持英文，但注释、说明、对话一律中文。
+
+***
+
+## 技能优先调用
+
+接到任务先扫 skill 列表，有匹配的直接用，不手写已有工具能做的事。
+
+### UI / 前端设计统一入口：/idesign
+
+所有 UI 设计需求统一走 `/idesign`（23 子命令，中文触发词已内置）。
+
+动效与视觉创建（插图/封面/信息图/图表/流程图/GSAP/Lottie/SVG 动画/微交互/毛玻璃等）另有独立路由表，用中文描述需求即可自动匹配，详见 `~/.claude/design-router.md`。
+
+**多技能时选择优先级** — 当不确定该调哪个 skill 时，优先试用最新的 skill。每次任务完成后如果效果不佳，下次可换另一个，直到找到最适合当前场景的 skill。
+
+**设计知识沉淀** — 每次设计相关任务完成后，如果过程中发现了新的模式、偏好或值得记住的经验，主动询问是否要记录到记忆中，以便后续复用。
+
+***
+
+## /insights 报告输出规则
+
+每次 `/insights` 执行完成后，必须在对话中直接输出完整的中文分析报告，涵盖以下所有部分：
+
+1. **使用习惯**
+2. **主要阻塞问题**（按类别列出，每类给出具体案例）
+3. **技能/插件使用情况**
+4. **具体改造建议**（分"立即可做"、"中期优化"、"长期提升"三档）
+5. **CLAUDE.md 推荐添加项**（直接给出可复制的配置文本）
+
+不要在对话中只给链接——输出完整内容。HTML 报告作为附件即可。
+
+***
+
+## 编码准则
+
+### Think Before Coding
+
+动手前声明假设，暴露不确定性。如果存在多种解释，呈现出来让用户决策。如果识别到更简单的方案，主动提出。
+
+### Simplicity First
+
+只写解决问题所需的最少代码。不为单次使用创建抽象，不为不可能的场景加错误处理。200 行能写 50 行就重写。
+
+### Surgical Changes
+
+只改必须改的，不顺手"优化"相邻代码。匹配现有风格。改动造成的 orphan（未使用的 import/变量/函数）必须清理。
+
+### Goal-Driven Execution
+
+将模糊任务转化为可验证目标："加校验" → "为非法输入写测试然后通过"。多步任务先给简要计划：`1. [步骤] → 验证: [检查项]`。
+
+***
+
+## 文档输出后自动打开
+
+生成 .md、.html 文件后，自动用系统默认程序打开：
+```powershell
+start "" "文件完整路径"
+```
+
+**Why**: 写完文档直接看渲染效果，无需手动翻目录打开。
+
+***
+
+## 客户端渲染页面（CSR/SPA）获取规则
+
+WebFetch 无法渲染 CSR 页面时，先尝试 WebSearch 找替代源；仍不行则告知用户需手动访问。
+
+## HTML 图标规范：功能用 SVG，装饰可 emoji
+
+生成 HTML 时，图标选择按用途分级：
+
+### 强制 SVG（颜色必须可控）
+
+**状态/反馈类**：✅❌⚠️ 以及任何表达"成功/失败/警告/进行中"的图标 → 用 Lucide SVG\
+**数据可视化辅助**：📊📈📉 等图表相关图标 → 用 SVG 保持配色一致
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon" aria-hidden="true">
+  <!-- 从 lucide.dev 复制 <path> -->
+</svg>
+```
+
+需要独立颜色时用 `stroke="指定色值"` 替代 `currentColor`。
+
+### 允许 emoji（装饰/氛围类）
+
+🧠🚀💡✨🎯🔥⭐🔒🔍 等纯装饰性图标 → 可以直接用 emoji，省事且自带颜色，在渐变/彩色背景上更自然。
+
+### 状态圆点（始终用 CSS）
+
+🔴🟡🟢 不用 emoji 也不用图标，纯 CSS 绘制：
+
+```css
+.dot{display:inline-block;width:.6em;height:.6em;border-radius:50%}
+.dot-ok{background:#4ade80}
+.dot-warn{background:#facc15}
+.dot-err{background:#f87171}
+```
+
+### 基础样式
+
+```css
+.icon { width:1em; height:1em; vertical-align:-0.15em; flex-shrink:0; }
+```
+
+### Lucide 常用关键词速查
+
+功能类（找 SVG）：circle-check、circle-x、alert-triangle、bar-chart-3\
+装饰类（可用 emoji）：brain、clipboard-list、cog、rocket、search、star、lock、lightbulb、sparkles、target、flame
+
+找不到对应图标就空着，不硬塞。
+
+<!-- CAPABILITY_LIST_START -->
+## 当前 AI 环境能力清单
+> 自动生成于 2026-07-22，运行 /ikevss-zh-friendly scan 刷新
+
+### Claude Code
+- Skills (352): a-stock-data, agent-reach, agently-mail, aiskillstore-marketplace-gemini-image, algorithmic-art, anthropics-skills-docx, app-privacy-compliance, baoyu-image-gen, brainstorming, browser-use, canvas-design, chart-visualization, chinese-code-review, citation-management, code-review, consciousness-council, contract-review, dask, deep-review, devils-advocate, dispatching-parallel-agents, docx, dongmi, earnings-call-processor, executing-plans, fact-checker, financial-data-collector, financial-report-auditor, financial-risk-scanner, find-skills, frontend-design, gemini-image, gen-image, github-project-management, gpt-image-2-style-library, graphify, greatrisksentinel, guizang-ppt-skill, humanizer-zh, ikevss-zh-friendly, infographic-creator, infographics, invitation-skill, lark-base, lark-doc, lark-sheets, lark-slides, lark-wiki, latex-posters, liteparse, longbridge-earnings, luopan, markdown-mermaid-writing, matplotlib, mcp-builder, meeting-insights-analyzer, meeting-workflow, minimalist-ui, ms-research-report, neat-freak, networkx, news-to-note, novel-writer, obsidian-vault, orange-line-illustration, paper-lookup, paper-researcher, pdf, planning-with-files, polars, pptx, pptx-generator, product-market-fit, pymc, pytorch-lightning, readme-generator, remotion-video, research, scientific-visualization, scikit-learn, seaborn, shap, shigu-mingjian, skill-creator, slack-gif-creator, statistical-analysis, statsmodels, storage-analyzer-windows-1.0.1, supir-slides, systematic-debugging, tag-organize, tdd, test-driven-development, timesfm-forecasting, torch-geometric, transformers, triage, typescript-check, umap-learn, using-superpowers, ux-writing-skill, verification-before-completion, wayfinder, web-artifacts-builder, web-design-guidelines, webapp-testing, what-if-oracle, wind-alice, wind-mcp-skill, workflow-runner, writing-plans, writing-skills, xiaohongshu-note-creator, xlsx（仅列出前 100 个，共 352 个）
+- Agents (27): academic-anthropologist, academic-geographer, academic-historian, academic-narratologist, academic-psychologist, academic-statistician, agentic-identity-trust, agents-orchestrator, business-strategist, design-inclusive-visuals-specialist, design-whimsy-injector, engineering-ai-engineer, engineering-desktop-app-engineer, engineering-multi-agent-systems-architect, engineering-prompt-engineer, engineering-realtime-collaboration-engineer, game-designer, product-behavioral-nudge-engine, product-feedback-synthesizer, product-manager, product-sprint-prioritizer, product-trend-researcher, project-management-project-shepherd, sales-discovery-coach, support-analytics-reporter, support-executive-summary-generator, testing-evidence-collector
+- Commands (0): 无
+- MCP (0): 无
+
+### Codex
+- Skills (23)
+- Agents (7)
+
+### OpenCode
+- Skills (99)
+- Agents (7)
+- Commands (5)
+
+### TRAE Work
+- Skills (101)
+- Agents(user_rules) (1)
+- MCP (1)
+
+### OpenClaw
+- Skills (89)
+
+### 其他平台
+- Windsurf: Skills (87)
+- WorkBuddy: SOUL.md 已配置
+- Cursor: Skills (1)
+
+### CLI 工具
+- 已检测 (13): git, gh, npx, npm, pnpm, yarn, pip, cargo, node, python, python3, rustc, curl
+<!-- CAPABILITY_LIST_END -->
