@@ -232,35 +232,28 @@ WebFetch 无法渲染 CSR 页面时，先尝试 WebSearch 找替代源；仍不�
 
 <!-- CAPABILITY_LIST_START -->
 ## 当前 AI 环境能力清单
-> 自动生成于 2026-07-22，运行 /ikevss-zh-friendly scan 刷新
+> 自动生成于 2026-07-30，运行 /ikevss-zh-friendly scan 刷新
 
 ### Claude Code
-- Skills (352): a-stock-data, agent-reach, agently-mail, aiskillstore-marketplace-gemini-image, algorithmic-art, anthropics-skills-docx, app-privacy-compliance, baoyu-image-gen, brainstorming, browser-use, canvas-design, chart-visualization, chinese-code-review, citation-management, code-review, consciousness-council, contract-review, dask, deep-review, devils-advocate, dispatching-parallel-agents, docx, dongmi, earnings-call-processor, executing-plans, fact-checker, financial-data-collector, financial-report-auditor, financial-risk-scanner, find-skills, frontend-design, gemini-image, gen-image, github-project-management, gpt-image-2-style-library, graphify, greatrisksentinel, guizang-ppt-skill, humanizer-zh, ikevss-zh-friendly, infographic-creator, infographics, invitation-skill, lark-base, lark-doc, lark-sheets, lark-slides, lark-wiki, latex-posters, liteparse, longbridge-earnings, luopan, markdown-mermaid-writing, matplotlib, mcp-builder, meeting-insights-analyzer, meeting-workflow, minimalist-ui, ms-research-report, neat-freak, networkx, news-to-note, novel-writer, obsidian-vault, orange-line-illustration, paper-lookup, paper-researcher, pdf, planning-with-files, polars, pptx, pptx-generator, product-market-fit, pymc, pytorch-lightning, readme-generator, remotion-video, research, scientific-visualization, scikit-learn, seaborn, shap, shigu-mingjian, skill-creator, slack-gif-creator, statistical-analysis, statsmodels, storage-analyzer-windows-1.0.1, supir-slides, systematic-debugging, tag-organize, tdd, test-driven-development, timesfm-forecasting, torch-geometric, transformers, triage, typescript-check, umap-learn, using-superpowers, ux-writing-skill, verification-before-completion, wayfinder, web-artifacts-builder, web-design-guidelines, webapp-testing, what-if-oracle, wind-alice, wind-mcp-skill, workflow-runner, writing-plans, writing-skills, xiaohongshu-note-creator, xlsx（仅列出前 100 个，共 352 个）
-- Agents (27): academic-anthropologist, academic-geographer, academic-historian, academic-narratologist, academic-psychologist, academic-statistician, agentic-identity-trust, agents-orchestrator, business-strategist, design-inclusive-visuals-specialist, design-whimsy-injector, engineering-ai-engineer, engineering-desktop-app-engineer, engineering-multi-agent-systems-architect, engineering-prompt-engineer, engineering-realtime-collaboration-engineer, game-designer, product-behavioral-nudge-engine, product-feedback-synthesizer, product-manager, product-sprint-prioritizer, product-trend-researcher, project-management-project-shepherd, sales-discovery-coach, support-analytics-reporter, support-executive-summary-generator, testing-evidence-collector
+- Skills (368): 设计总监(idesign,23子命令/全中文)、动效方法论(motion-design)、GSAP引擎×(gsap-core/timeline/plugins/react/frameworks/scrolltrigger/performance/utils/全汉化)、GSAP高层(gsap-web)、微交互(micro-interaction)、SVG动画(svg-animation)、Lottie(lottie-animation)、页面过渡(page-transition-animation)、ASCII动画(ascii-animation)、性能优化(60fps-animation)、无障碍动效(accessible-animation)、毛玻璃(glassmorphism)、AI图像生成(baoyu-image-gen,主力)、文章配图(baoyu-article-illustrator)、橙线插画(orange-line-illustration)、Gemini出图(baoyu-danger-gemini-web)、风格库(gpt-image-2-style-library)、小红书配图(baoyu-xhs-images)、封面生成(baoyu-cover-image)、信息图(baoyu-infographic)、数据图表(chart-visualization)、科研图表(scientific-visualization)、流程图(markdown-mermaid-writing)、知识图谱(graphify)、画布设计(canvas-design)、图片压缩(baoyu-compress-image)、格式转换(imagemagick-conversion)、PPT(pptx)、PPT设计(ppt-design-master)、宝玉设计(baoyu-design)、superdesign(superdesign-1.0.0)、营销心理(marketing-psychology)、主题工厂(theme-factory)、A股数据(a-stock-data)、腾讯会议(ikevss-tencentmeeting)、深度调研(agent-reach)、邮件模板(react-email)以及代码审查/文档处理/会议效率/金融数据/学术研究/提示工程/工作流编排等全套生产力工具
+- 设计能力栈: idesign(决策层/23子命令) + motion-design(动效方法论) + GSAP引擎×9(动效实现) + gsap-web(高层封装) + 微交互/SVG/Lottie/页面过渡/ASCII/60fps/无障碍/毛玻璃(专项动效/11) + 插图×6/封面/信息图/图表×2/流程图×2/画布/压缩/转换(视觉创建/14) + PPT×15(幻灯片) + 综合设计/主题/营销心理(4) = 88 个设计类 skill
+- 设计中文路由: design-router.md(181行/100+触发词) + zh-commands.md(idesign 18条中文映射)
+- 设计 GitHub 分发: ikevss/claude-code-designer-setup (一键安装/新电脑就绪)
+- Agents (35): idesign-asset-producer, idesign-documenter, idesign-finish-reviewer, idesign-manual-edit-applier, general-purpose, 工作流架构师, 会议效率专家, AI工程师, 产品经理, 项目守护者, 数据分析报告师, 商业战略顾问, 趋势研究员, 心理学专家, 统计学专家, 人类学专家, 地理学专家, 历史学专家, 叙事学专家, 游戏设计师, 多智能体系统架构师, 智能体身份与信任架构师, 提示词工程师, 实时协作工程师, 站点可靠性工程师, 桌面应用工程师, MCP构建器, 敏捷排期优化师, 用户反馈合成师, 包容性视觉设计专家, 品牌趣味注入师, 行为助推引擎专家, 证据收集测试员, Explore, Plan
 - Commands (0): 无
-- MCP (0): 无
+- MCP (1): supir-investor-db (SuperIR 投资者数据库)
 
-### Codex
-- Skills (23)
-- Agents (7)
-
-### OpenCode
-- Skills (99)
-- Agents (7)
-- Commands (5)
-
-### TRAE Work
-- Skills (101)
-- Agents(user_rules) (1)
-- MCP (1)
-
-### OpenClaw
-- Skills (89)
+### 汉化覆盖
+- 全局汉化率: 364/368 (99.5%)
+- 仅 2 个纯英文: high-end-visual-design, tencent-edgeone-skill
+- 已归档: infographic-creator, infographics, investment-research, openclaw-skills-gen-image, references
 
 ### 其他平台
-- Windsurf: Skills (87)
-- WorkBuddy: SOUL.md 已配置
-- Cursor: Skills (1)
+- Codex (23 skills, 7 agents)
+- OpenCode (99 skills, 7 agents, 5 commands)
+- TRAE Work (101 skills, 1 agent, 1 MCP)
+- OpenClaw (89 skills)
+- Windsurf (87 skills), WorkBuddy (SOUL.md), Cursor (1 skill)
 
 ### CLI 工具
 - 已检测 (13): git, gh, npx, npm, pnpm, yarn, pip, cargo, node, python, python3, rustc, curl
