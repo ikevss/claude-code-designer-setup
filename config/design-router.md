@@ -141,3 +141,41 @@ cd ~/claude-designer && bash designer-setup.sh
 ```
 
 离线备用包：`~/designer-setup-2026-07-30.tar.gz` (71 MB)
+
+---
+
+## 补充：幻灯片 / 演示文稿
+
+| 你说 | 路由 | 做什么 |
+|------|------|--------|
+| 做 PPT、做幻灯片、做演示文稿 | `pptx` | 通用 PPTX 创建/编辑（最稳） |
+| 设计精美的 PPT、PPT 排版设计 | `ppt-design-master` | PPT 设计大师 |
+| 用代码生成 PPT | `pptx-generator` | PptxGenJS 编程生成 |
+| 做幻灯片/演示文稿（内容向） | `baoyu-slide-deck` | 宝玉幻灯片 |
+| 创建 Slidev 幻灯片 | `create-slide` | Slidev 演示 |
+| 查当前幻灯片状态 | `current-slide` | 幻灯片查看 |
+| 交互式幻灯片、分支导航 | `slide-authoring` | 超帧交互式幻灯片 |
+| 做橙线风格 PPT | `orange-ppt-skill` | 橙线 PPT |
+| 做归藏风格 PPT | `guizang-ppt-skill` | 归藏 PPT |
+| 做 SuPIR 风格 PPT | `supir-slides` | SuPIR 幻灯片 |
+| 做 Gorden 风格 PPT | `GordenPPTSkill` | Gorden PPT |
+| 图片转 PPT | `GordenImage2PPTX` | 图片→PPTX |
+
+## 补充：综合设计 / 风格 / 主题
+
+| 你说 | 路由 | 做什么 |
+|------|------|--------|
+| 综合设计需求、多种设计风格试一遍 | `baoyu-design` | 宝玉综合设计 |
+| 高级 UI 设计、系统级设计 | `superdesign-1.0.0` | superdesign |
+| 创建自定义主题样式 | `create-theme` | 主题创建（Slidev） |
+| 批量管理主题样式 | `theme-factory` | 主题工厂 |
+
+## 补充：营销心理学（UX 相关）
+
+| 你说 | 路由 | 做什么 |
+|------|------|--------|
+| 营销心理/用户行为/说服力优化 | `marketing-psychology` | 营销心理学（UX 转化优化） |
+
+---
+
+> **PPT 默认路由**: 未指定风格时 `pptx` → 需要代码生成时 `pptx-generator` → 特定风格走对应 skill
