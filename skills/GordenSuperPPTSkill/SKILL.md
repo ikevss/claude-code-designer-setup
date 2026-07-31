@@ -31,9 +31,9 @@ description: "Gorden 高级PPT技能 | 高级 PowerPoint 制作与编辑功能 |
 **当前已配置：**
 | 参数 | 值 |
 |------|-----|
-| `GPT_IMAGE_API_URL` | `https://aigateway.edgecloudapp.com/v1/YOUR_GATEWAY_ID/gpt` |
-| `GPT_IMAGE_MODEL` | `gpt-image-2-plus` |
-| `GPT_IMAGE_SIZE` | `1920x1080`（16:9） |
+| `GPT_IMAGE_API_URL` | `https://aigateway.edgecloudapp.com/v1/1109fb65f197b62babfa3f56c0cf7cbc/gpt` |
+| `GPT_IMAGE_MODEL` | `gpt-image-2` |
+| `GPT_IMAGE_SIZE` | `1920x1080`（16:9）| |
 
 > 配置完成后，直接说”做一份 PPT / 生成图片版 PPT”即可开始使用，无需任何额外设置。
 

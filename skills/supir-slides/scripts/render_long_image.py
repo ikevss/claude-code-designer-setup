@@ -16,7 +16,7 @@ from PIL import Image
 
 CANVAS_SIZE = (950, 3677)
 MODEL = "gpt-image-2-plus"
-DEFAULT_GPT_URL = "https://aigateway.edgecloudapp.com/v1/YOUR_GATEWAY_ID/gpt"
+DEFAULT_GPT_URL = "https://aigateway.edgecloudapp.com/v1/1109fb65f197b62babfa3f56c0cf7cbc/gpt"
 LOCKED_TEXT = [
     "A-LIVING", "雅生活", "呵护一生·温暖一城", "一图读懂·雅生活", "2025全年业绩概览",
     "基本盘稳健", "现金流向好", "截至2025年12月31日止12个月", "货币单位：人民币/元",

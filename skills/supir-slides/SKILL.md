@@ -1,11 +1,11 @@
 ---
 name: supir-slides
-description: "SuPIR 幻灯片制作 | 制作与编辑 PPT 演示文稿，含双 CLI/双 AI 生图，风格驱动工作流 | slide, PPT, presentation, image generation, 幻灯片, 配图"
+description: "SuPIR 幻灯片制作 | 默认 image2 生图 PPT，风格驱动工作流 | slide, PPT, presentation, image generation, 幻灯片, 配图"
 ---
 
 # Supir Slides Manager
 
-风格驱动的 PPT 制作技能，支持双 CLI 和双 AI 生图后端。
+风格驱动的 PPT 制作技能，**默认以 image2 (gpt-image-2) 生图**输出图片型 PPTX。
 
 ## 核心工作流程
 
@@ -21,76 +21,60 @@ description: "SuPIR 幻灯片制作 | 制作与编辑 PPT 演示文稿，含双 
    - 用户上传图片型 PPT → 自动触发转换流程
    - 用户无输入 → 从零开始
 
-2. **仅在必要时询问参数**
-   - 页数：用户指定 或 建议
-   - 比例：默认 16:9
+2. **参数确认**（必须）
+   - 比例：**仅支持 16:9**（1920×1080 或 1792×1024 等，自动选取首个可用尺寸）
    - 语言：默认中文
-   - 文字密度：默认低密度
+   - 文字密度：数据密集型文档建议**扩页**（每页 ≤3 个核心信息点 + ≤1 个表格）
 
 ### 阶段 2：风格决策
 
-**执行步骤**：
-
 1. **判断用户意图**
-   - 用户说"按这个风格做" / "保持原有风格" → 提炼并应用，**跳过确认**
+   - 用户说"按这个风格做" / "保持原有风格" → 提炼并应用，跳过确认
    - 用户指定风格名 → 直接使用
    - 用户提供参考图 → 提炼风格
-   - 无指定 → 使用默认风格
+   - 无指定 → 使用默认风格（深海军蓝 + 琥珀金 + 青、白色背景、16:9）
 
-2. **风格内容**
+2. **风格内容**（每次生成时在 prompt 中固定）
    - 颜色系统（背景/主色/强调色）
-   - 字体气质（标题/正文）
-   - 构图语言（封面/内容页/结论页）
-   - 图形元素（边框/卡片/装饰）
+   - 字体气质（标题加粗大号 / 正文标准）
+   - 构图语言（封面居中、内容页标题顶栏 + 卡片/表格/流程图）
    - 信息密度规则
 
 ### 阶段 3：内容结构化
 
-**执行步骤**（如有输入文档）：
-
 1. 提取主题与核心观点
-2. 识别可视觉化对象
+2. **逐段核对原文**：不概括、不改写、不删数值——每一处数字、日期、百分比、金额必须原样进入 prompt
 3. 规划每页标题与信息
-4. 内部生成 outline，**不展示给用户**
+4. **必须产出分页大纲**，包含每页标题 + 关键信息点 + 预计文字量
 
-### 阶段 4：提示词生成
+### 阶段 4：确认（强制）
 
-**执行步骤**：
+**多页生成（≥3 页）必须在阶段 3 之后、阶段 5 之前，向用户展示分页大纲并获得确认**：
 
-1. 内部生成 prompts，**不展示给用户**
-2. 仅在用户要求时才展示
+```
+分页大纲（共 N 页 · 16:9 · image2 生图）
+1. [标题] — [关键信息摘要]
+2. [标题] — [关键信息摘要]
+...
+是否继续生成？(y/n)
+```
 
-### 阶段 5：生成可编辑 PPT
+用户确认前**禁止执行任何生图调用**。
 
-**默认输出类型**：可编辑文字 PPTX（非图片型）
+### 阶段 5：生成图片型 PPT
 
-**执行步骤**：
-
-1. **使用 OfficeCLI 生成可编辑内容**
-   - 每页创建文本框、形状、图表
-   - 保留文字可编辑性
-   - 应用风格配置（颜色、字体）
-
-2. **显示进度**
-   - 显示"正在生成第 X/Y 页..."
-   - 实时更新进度
-
-3. **错误恢复**
-   - 失败自动重试（最多 2 次）
-   - 重试仍失败则报告错误
+1. **逐个生图**：使用 `scripts/generate_image.py --prompt "..." --output slide-XX.png`
+2. **显示进度**：正在生成第 X/N 页...
+3. **断点续传**：已存在且 >30KB 的上一轮文件自动跳过
+4. **错误恢复**：单张失败自动重试 2 次，仍失败记录并继续下一张
+5. **组装 PPTX**：所有图片生完后，python-pptx 满版贴合 16:9（13.333×7.5 英寸），同时生成 PDF
+6. **清理**：删除 PNG 中间文件（用户只看到最终 .pptx 和 .pdf）
 
 ### 阶段 6：交付
 
-**执行步骤**：
-
-1. **交付可编辑 PPTX 文件**
-   - 默认交付 .pptx 文件
-   - 文字可直接编辑
-   - 图表可修改数据
-
-2. **清理临时文件**
-   - 删除所有中间产物
-   - 用户只看到最终 .pptx 文件
+1. 交付图片型 .pptx + .pdf
+2. 报告成功/失败统计
+3. 若有关键页失败，提示用户手动补充
 
 ---
 
@@ -98,94 +82,64 @@ description: "SuPIR 幻灯片制作 | 制作与编辑 PPT 演示文稿，含双 
 
 | 输出类型 | 说明 | 使用场景 |
 |---------|------|---------|
-| **可编辑 PPTX**（默认） | 文字可编辑的 .pptx | 日常 PPT 制作 |
-| 图片型 PPTX | 每页一张图片的 .pptx | 需要视觉效果时 |
+| **图片型 PPTX**（**默认**） | 每页一张 AI 生图的 .pptx + .pdf | 所有 PPT 制作（默认） |
+| 传统可编辑 PPTX | 文字可编辑、表格可修改 | 用户明确说"可编辑"或纯文字排版需求时 |
 | 单张图片 | 单独的 .png 图片 | 需要配图时 |
+
+---
+
+## 尺寸硬约束
+
+| 参数 | 值 |
+|------|-----|
+| 唯一比例 | **16:9**（不接受 3:2、1:1 等任何其他比例） |
+| 自动探测顺序 | 1792×1024 → 1024×576 → 1536×864（取第一个可用的 16:9） |
+| PPTX 画布 | 13.333 × 7.5 英寸（标准 16:9） |
+
+若用户明确要求 9:16（竖版），使用 1024×1792。
+
+---
+
+## 内容保真规则
+
+1. **原文数字不改**：所有数值、日期、百分比、金额、股票代码、管线编号 100% 原文照搬
+2. **数据密集文档自动扩页**：原文任一章节含 ≥8 行表格或 ≥200 字段落时，应拆为多页，每页信息点 ≤3 个
+3. **表格策略**：≥6 行的表格，建议改用传统 python-pptx 叠加文字（混合模式）以保证精确；或拆为 2 页
+4. **关键金句不重写**：原文中带引号、加粗、定位语句等关键表述，prompt 中必须完整引用，不概括
+5. **附录入库**：原文含附录时，应包含进分页；用户确认时明确哪些入了哪些没入
 
 ---
 
 ## 确认点规则
 
-| 场景 | 是否需要确认 |
-|------|-------------|
-| 用户说"按这个风格做" | ❌ 跳过 |
-| 用户说"保持原有风格" | ❌ 跳过 |
-| 用户说"做个 PPT" | ✅ 需要确认 |
-| 单页生成 | ❌ 直接交付 |
-| 多页生成 | ✅ 确认大纲 |
+| 场景 | 是否需要确认 | 说明 |
+|------|:---:|------|
+| 用户说"按这个风格做" | ❌ 跳过 | 直接应用 |
+| 用户说"做个 PPT"（单页） | ❌ 直接交付 | 无大纲 |
+| 用户说"做个 PPT"（多页 ≥3） | ✅ **必须确认** | 展示分页大纲 + 尺寸 + 张数 |
+| 批量生图（≥10 张） | ✅ **必须确认** | 展示分页 + 预估耗时 |
+| 数据密集型文档 | ✅ **必须确认** | 展示分页 + 注明扩页策略 |
 
 ---
 
-## CLI 双备份策略
+## 生图后端（唯一）
 
-### 优先：open-slide
+### image2 (gpt-image-2)
 
-```bash
-npx @open-slide/cli init <project-name>
-```
-
-- React 组件式幻灯片
-- 1920x1080 画布
-- 支持 TypeScript/React
-
-### 备用：OfficeCLI（实验性）
+- 网关：`GPT_IMAGE_API_URL/images/generations`
+- 模型：`gpt-image-2`
+- 尺寸：16:9 自动探测（1792×1024 优先）
+- Key 配置在 `.env` 的 `GPT_IMAGE_API_KEY`
 
 ```bash
-npx officecli <command>
-```
+# 单张
+python scripts/generate_image.py --prompt "..." --output slide.png
 
-- 传统 PPTX 操作
-- 添加/修改/删除幻灯片
+# 批量（--prompts-file 每行一个 JSON 或纯文本 prompt）
+python scripts/generate_image.py --prompts-file prompts.txt --output-dir ./slides/
 
----
-
-## AI 生图双备份策略
-
-### 优先：Agnes Image API
-
-```python
-# 从 .env 读取
-AGNES_API_KEY = os.environ.get("AGNES_API_KEY")
-```
-
-- 模型：`agnes-image-2.1-flash`
-- 价格：$0.003/张
-
-### 备用：GPT Image API
-
-```python
-# 从 .env 读取
-GPT_IMAGE_API_KEY = os.environ.get("GPT_IMAGE_API_KEY")
-```
-
-- 模型：`gpt-image-2-plus`
-
----
-
-## 图片转可编辑 PPT
-
-将图片型 PPT 转换为可编辑的 PPTX 格式。
-
-### 使用方法
-
-```bash
-python <skill-dir>/scripts/image_to_editable_ppt.py --input slide.png --output editable.pptx
-```
-
-### 注意事项
-
-⚠️ **消耗 Token 较多**：此功能需要调用图像识别服务，消耗 Token 和时间较多。
-
-首次使用会提示确认：
-```
-============================================================
-⚠️  图片转可编辑 PPT 需要消耗较多 Token 和时间
-============================================================
-输入文件: slide.png
-文件大小: 2.50 MB
-预计耗时: 60-180 秒（取决于图片复杂度）
-============================================================
-是否继续？(y/n)
+# 探测可用尺寸
+python scripts/generate_image.py --probe-sizes
 ```
 
 ---
@@ -194,41 +148,23 @@ python <skill-dir>/scripts/image_to_editable_ppt.py --input slide.png --output e
 
 ### 保存风格
 
-从参考图提炼风格后，自动询问是否保存：
-
-```
-是否将此风格保存为可复用风格？(y/n)
-```
-
-保存后可在下次使用时直接调用。
+从参考图提炼风格后，自动询问是否保存。保存后在 `styles/` 目录，下次可直接调用。
 
 ### 列出可用风格
 
 ```bash
-python <skill-dir>/scripts/style_manager.py list
-```
-
-### 使用已有风格
-
-```bash
-python <skill-dir>/scripts/style_manager.py get <style-name>
+python scripts/style_manager.py list
 ```
 
 ---
 
-## 环境配置
-
-### API Key 配置
-
-在 `.env` 文件中配置：
+## 环境配置（.env）
 
 ```env
-# AI 图像生成
-AGNES_API_KEY=your_agnes_key
-GPT_IMAGE_API_KEY=your_gpt_key
-
-# 图片转 PPT
-PADDLE_OCR_TOKEN=your_paddle_token
+GPT_IMAGE_API_KEY=<image2-key>
+GPT_IMAGE_API_URL=https://aigateway.edgecloudapp.com/v1/1109fb65f197b62babfa3f56c0cf7cbc/gpt
+GPT_IMAGE_MODEL=gpt-image-2
+PADDLE_OCR_TOKEN=<ocr-token>   # 图片转 PPT 用
 ```
 
 ---
@@ -237,49 +173,28 @@ PADDLE_OCR_TOKEN=your_paddle_token
 
 | 脚本 | 功能 |
 |------|------|
-| `generate_image.py` | AI 图像生成（双 API 自动切换，含进度和重试） |
-| `pptx_converter.py` | PPTX 转 React 组件 |
-| `template_library.py` | 模板库管理 |
+| `generate_image.py` | image2 生图（单后端，含尺寸自动探测、重试、断点续传） |
 | `style_manager.py` | 风格管理（保存/列出/加载） |
+| `image_to_editable_ppt.py` | 图片转可编辑 PPT（PaddleOCR） |
 | `export_pdf.py` | PDF 导出 |
-| `init_environment.py` | 环境自动初始化 |
-| `version_manager.py` | 版本快照管理 |
-| `image_to_editable_ppt.py` | 图片转可编辑 PPT |
-| `parse_ooxml.py` | PPTX 结构解析 |
-| `crop_brand_asset.py` | Logo 裁剪 |
-| `tile_pages.py` | 多页拼接 |
-| `validate_template_profile.py` | 模板校验 |
+| 其余脚本 | 辅助工具（裁剪/拼接/校验等） |
 
 ---
 
 ## 错误处理
 
-### CLI 不可用
+### 生图失败
 
 ```
-⚠️ open-slide 和 OfficeCLI 都不可用
-正在自动安装 open-slide...
-✅ 安装完成，继续执行
+[3/24] FAIL: 图片生成失败
+→ 记录跳过，继续下一页
+→ 最终报告失败页列表，建议用户单独重试
 ```
 
-### API 调用失败
+### 全部失败
 
 ```
-⚠️ Agnes API 调用失败，切换到 GPT Image...
-✅ 使用 GPT Image 生成成功
-```
-
-### 生成失败重试
-
-```
-⚠️ 第 1 次生成失败，正在重试...
-✅ 重试成功
-```
-
-### 都失败
-
-```
-❌ 无法生成图像
-原因：Agnes API 超时，GPT Image API 认证失败
-建议：检查网络连接或 API Key 是否有效
+❌ image2 所有调用失败
+原因：<具体错误>
+建议：检查 Key 是否过期、网关是否可达
 ```

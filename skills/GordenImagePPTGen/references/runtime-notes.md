@@ -105,7 +105,7 @@
 
 ```
 GPT_IMAGE_API_KEY=sk-xxx
-GPT_IMAGE_API_URL=https://aigateway.edgecloudapp.com/v1/YOUR_GATEWAY_ID/gpt
+GPT_IMAGE_API_URL=https://aigateway.edgecloudapp.com/v1/1109fb65f197b62babfa3f56c0cf7cbc/gpt
 GPT_IMAGE_MODEL=gpt-image-2-plus
 GPT_IMAGE_SIZE=1920x1080
 GPT_IMAGE_TIMEOUT=300
