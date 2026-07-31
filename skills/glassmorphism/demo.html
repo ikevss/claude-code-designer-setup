@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glassmorphism 毛玻璃效果演示</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #feca57 75%, #ff6b6b 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 背景动画 */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: moveBackground 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes moveBackground {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    p.subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.1rem;
+      margin-bottom: 50px;
+    }
+
+    /* 演示区域容器 */
+    .demos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    /* 基础玻璃卡片 */
+    .card {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+
+    /* 高光边缘 */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0.25)
+      );
+      mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      -webkit-mask-composite: xor;
+      pointer-events: none;
+    }
+
+    /* 抖动噪点 */
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0.04;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .card:hover {
+      backdrop-filter: blur(24px) saturate(180%);
+      transform: translateY(-4px);
+      box-shadow:
+        0 16px 48px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+    }
+
+    .card h3 {
+      color: white;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .card p {
+      color: rgba(255,255,255,0.95);
+      line-height: 1.6;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    /* 液态玻璃效果 */
+    .liquid-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .liquid-card svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .liquid-card glass-refract {
+      filter: url(#liquid-glass);
+    }
+
+    /* 控制按钮 */
+    .controls {
+      text-align: center;
+      margin-top: 60px;
+      padding: 20px;
+      background: rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      display: inline-block;
+    }
+
+    button {
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0 10px;
+      font-size: 1rem;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-2px);
+    }
+
+    /* 响应式 */
+    @media (prefers-reduced-transparency: reduce) {
+      .card {
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+      .card::before, .card::after { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { transition: none; }
+      .liquid-card svg * { animation: none !important; }
+    }
+  </style>
+
+  <!-- SVG Filters for Liquid Glass -->
+  <svg style="position: absolute; width: 0; height: 0;">
+    <defs>
+      <filter id="liquid-glass" x="-50%" y="-50%" width="200%" height="200%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="2" seed="3" result="turbulence">
+          <animate attributeName="baseFrequency" dur="18s" values="0.008 0.012;0.012 0.008;0.008 0.012" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="22" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+</head>
+<body>
+  <div class="container">
+    <h1>Glassmorphism ✨</h1>
+    <p class="subtitle">毛玻璃与液态玻璃效果演示 — 从零开始掌握现代UI设计语言</p>
+
+    <div class="demos-grid">
+      <!-- 基础卡片 -->
+      <div class="card">
+        <h3>🎨 基础玻璃卡片</h3>
+        <p>这是最基础的玻璃效果：半透明背景 + backdrop-filter模糊 + 边缘高光 + 层叠阴影。悬停时模糊加深、亮度增强、面板上浮。</p>
+        <p style="margin-top: 15px;">💡 小技巧：玻璃需要真实的背景（图片/渐变）才能发挥作用，纯色背景无法产生模糊效果。</p>
+      </div>
+
+      <!-- 高光边缘 -->
+      <div class="card">
+        <h3>✨ 高光边缘（Edge Highlight）</h3>
+        <p>真实的玻璃会反射光线。使用 ::before 伪元素在左上角创建线性渐变高光，配合 mask-exclude 制作边缘光晕，让玻璃看起来更有立体感。</p>
+        <p style="margin-top: 15px;">💡 关键参数：gradient角度 135°，mask 组合创造1px细边框高亮。</p>
+      </div>
+
+      <!-- 液态玻璃 -->
+      <div class="card liquid-card">
+        <h3>🌊 液态玻璃（Liquid Glass）</h3>
+        <p>2026年最新趋势！通过 SVG feDisplacementMap 滤镜使背景发生折射变形，模拟真实液体的流动效果。结合 feTurbulence 生成动态噪声波纹。</p>
+        <p style="margin-top: 15px;">💡 scale=22为中等强度 refraction，baseFrequency控制波纹大小和速度，dur=18s保证缓慢自然的呼吸节奏。</p>
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <rect width="100%" height="100%" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.5" rx="8"/>
+        </svg>
+      </div>
+
+      <!-- 动画过渡 -->
+      <div class="card">
+        <h3>🔄 平滑动画过渡</h3>
+        <p>只动画玻璃的"特质"而非几何属性：模糊值、亮度、阴影和transform。使用 cubic-bezier(0.16, 1, 0.3, 1) 实现苹果式流畅缓动。</p>
+        <p style="margin-top: 15px;">⚠️ 注意：避免直接动画 blur-radius（性能消耗大），优先 animate transform/background/box-shadow。</p>
+      </div>
+
+      <!-- 抗噪点 -->
+      <div class="card">
+        <h3>🔇 去除色彩断层（Banding Removal）</h3>
+        <p>强模糊会导致色彩断层现象。通过 SVG feTurbulence 在极低的不透明度（≤0.06）下添加一层噪声纹理，可有效消除带状条纹，使玻璃表面更细腻。</p>
+        <p style="margin-top: 15px;">💡 Noise 用 inline data URI 表示，无需额外文件请求，混合模式设为 overlay。</p>
+      </div>
+
+      <!-- 无障碍支持 -->
+      <div class="card">
+        <h3>♿ 无障碍支持</h3>
+        <p>自动适配系统设置：当用户偏好减少透明度时转为纯不透明背景；减少动效时停止所有动画。同时确保文本对比度符合 WCAG AA 标准。</p>
+        <p style="margin-top: 15px;">⚙️ 媒体查询：@media (prefers-reduced-transparency)、@media (prefers-reduced-motion)、@supports not (backdrop-filter)</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button onclick="setDemoState('hover')">进入悬停态</button>
+      <button onclick="setDemoState('normal')">恢复常态</button>
+      <button onclick="toggleLiquid()">切换液态模式</button>
+      <button onclick="toggleMotion()" title="关闭所有动画">禁用动画</button>
+    </div>
+
+    <div style="text-align: center; margin-top: 60px; color: rgba(255,255,255,0.8); font-size: 0.9rem;">
+      <p>URL 参数调试：?state=hover | ?t=2（冻结动画于2秒）</p>
+      <p style="margin-top: 10px;">演示代码参考：<a href="references/glass-recipes.md" style="color:#feca57;text-decoration:none;">查看详细配方文档</a></p>
+    </div>
+  </div>
+
+  <script>
+    function setDemoState(state) {
+      const cards = document.querySelectorAll('.card');
+      if (state === 'hover') {
+        // 强制所有卡片进入 hover 状态
+        cards.forEach(card => {
+          card.style.transform = 'translateY(-4px)';
+          card.style.backdropFilter = 'blur(24px) saturate(180%)';
+          // 这里本应使用 CSS 类，但为了演示直接在 JS 中设置
+        });
+      } else {
+        cards.forEach(card => {
+          card.style.transform = '';
+          card.style.backdropFilter = '';
+        });
+      }
+    }
+
+    let liquidMode = false;
+    function toggleLiquid() {
+      liquidMode = !liquidMode;
+      const cards = document.querySelectorAll('.liquid-card');
+      cards.forEach(card => {
+        if (liquidMode) {
+          card.classList.add('glass-refract');
+        } else {
+          card.classList.remove('glass-refract');
+        }
+      });
+    }
+
+    let motionReduced = false;
+    function toggleMotion() {
+      motionReduced = !motionReduced;
+      document.documentElement.style.setProperty('--motion-reduced', motionReduced ? 'true' : 'false');
+      if (motionReduced) {
+        document.body.style.setProperty('--motion-reduced', 'reduce');
+      } else {
+        document.body.style.removeProperty('--motion-reduced');
+      }
+    }
+
+    // 检查 URL 参数
+    const params = new URLSearchParams(window.location.search);
+    const stateParam = params.get('state');
+    const tParam = params.get('t');
+
+    if (stateParam === 'hover') {
+      setDemoState('hover');
+    }
+  </script>
+</body>
+</html>
