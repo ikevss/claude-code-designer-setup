@@ -4,14 +4,14 @@
 >
 > 不管是 Claude Code、Codex、TRAE Work、Cursor、Gemini CLI、Qoder、WorkBuddy 还是 QwenWork——只要你的 Agent 能读 Markdown/SKILL.md，它就能用。
 > 
-> 🌐 **[官方网站](https://ikevss.github.io/claude-code-designer-setup/)**
+> 🌐 **[官方网站](https://ikevss.github.io/design-skillhub/)**
 
 ---
 
 ## 30 秒安装
 
 ```bash
-git clone https://github.com/ikevss/claude-code-designer-setup.git ~/design-skillhub
+git clone https://github.com/ikevss/design-skillhub.git ~/design-skillhub
 cd ~/design-skillhub && bash designer-setup.sh
 ```
 
