@@ -605,7 +605,7 @@
       if (handle) handle.style.left = pct + '%';
     }
     function onDown(e) {
-      e.preventDefault();
+      e.preventDefault(); e.stopPropagation();
       dragging = true;
       const x = e.touches ? e.touches[0].clientX : e.clientX;
       update(x);
@@ -619,11 +619,13 @@
     function onUp() { dragging = false; }
     slider.addEventListener('mousedown', onDown);
     slider.addEventListener('touchstart', onDown, {passive:false});
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('touchmove', onMove, {passive:false});
-    window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchend', onUp);
-    update(slider.getBoundingClientRect().left + slider.getBoundingClientRect().width * 0.5);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('mouseup', onUp);
+    document.addEventListener('touchend', onUp);
+    // Init at 50%
+    const rect = slider.getBoundingClientRect();
+    update(rect.left + rect.width * 0.5);
   }
 })();
 </script>
