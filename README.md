@@ -104,14 +104,6 @@ cd ~/claude-designer && bash designer-setup.sh
 - Node.js ≥ 22（idesign 检测器建议）
 - 无需 API Key（生图类需要自行配置 .env）
 
-## 致谢
-
-- idesign（原名 impeccable）by [Paul Bakaus](https://github.com/pbakaus/impeccable)
-- GSAP skills by [GreenSock](https://github.com/greensock/gsap-skills)
-- 设计系统 skill 来自 [Owl-Listener/designer-skills](https://github.com/Owl-Listener/designer-skills)
-- 无障碍/工作流/框架 skill 来自 [plugin87/ux-ui-agent-skills](https://github.com/plugin87/ux-ui-agent-skills)
-- 其余来自 Claude Code Skills Marketplace
-
 ## License
 
 Apache 2.0 — 可自由商用和修改。
