@@ -136,7 +136,8 @@
   footer a:hover{opacity:.7}
 
   /* ═══ 拖动对比滑块 ═══ */
-  .compare-slider{position:relative;width:100%;max-width:900px;margin:0 auto;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);user-select:none;-webkit-user-select:none;touch-action:pan-y;cursor:ew-resize}
+  .compare-slider{position:relative;width:100%;max-width:900px;margin:0 auto;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);user-select:none;-webkit-user-select:none;touch-action:none;cursor:ew-resize}
+  .compare-slider *{user-select:none!important;-webkit-user-select:none!important;cursor:ew-resize!important}
   .compare-slider .compare-track{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden}
   .compare-slider .compare-before{position:absolute;inset:0;z-index:1}
   .compare-slider .compare-after{position:absolute;inset:0;z-index:2;clip-path:inset(0 50% 0 0)}
@@ -600,15 +601,28 @@
       let pct = ((pos - rect.left) / rect.width) * 100;
       pct = Math.max(5, Math.min(95, pct));
       after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
-      divider.style.left = pct + '%';
-      handle.style.left = pct + '%';
+      if (divider) divider.style.left = pct + '%';
+      if (handle) handle.style.left = pct + '%';
     }
-    slider.addEventListener('mousedown', function(e) { dragging = true; update(e.clientX); });
-    slider.addEventListener('touchstart', function(e) { dragging = true; update(e.touches[0].clientX); }, {passive:false});
-    window.addEventListener('mousemove', function(e) { if (dragging) update(e.clientX); });
-    window.addEventListener('touchmove', function(e) { if (dragging) { e.preventDefault(); update(e.touches[0].clientX); } }, {passive:false});
-    window.addEventListener('mouseup', function() { dragging = false; });
-    window.addEventListener('touchend', function() { dragging = false; });
+    function onDown(e) {
+      e.preventDefault();
+      dragging = true;
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      update(x);
+    }
+    function onMove(e) {
+      if (!dragging) return;
+      e.preventDefault();
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      update(x);
+    }
+    function onUp() { dragging = false; }
+    slider.addEventListener('mousedown', onDown);
+    slider.addEventListener('touchstart', onDown, {passive:false});
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onMove, {passive:false});
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchend', onUp);
     update(slider.getBoundingClientRect().left + slider.getBoundingClientRect().width * 0.5);
   }
 })();
