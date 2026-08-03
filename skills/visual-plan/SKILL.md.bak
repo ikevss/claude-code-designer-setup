@@ -1,6 +1,6 @@
 ---
 name: visual-plan
-description: 交互式视觉计划 | 将文本计划转为丰富的交互式视觉计划——图表、文件地图、代码注释、开放问题、UI原型审查 | 帮我做视觉方案、项目蓝图、架构图、代码地图 | visual plan, interactive diagram, file map, code annotation
+description: >-
   Turn ordinary text plans into rich interactive visual plans with diagrams,
   file maps, annotated code, open questions, and UI/prototype review when
   useful.

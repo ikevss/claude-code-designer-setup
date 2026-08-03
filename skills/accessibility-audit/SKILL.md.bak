@@ -1,6 +1,6 @@
 ---
 name: accessibility-audit
-description: 无障碍审计 | 对照WCAG指南做全面无障碍审计——严重度评级和修复方案 | 帮我检查无障碍、a11y审计、WCAG合规 | accessibility audit, WCAG, a11y, screen reader
+description: Conduct a comprehensive accessibility audit against WCAG guidelines with severity ratings and remediation steps.
 ---
 # Accessibility Audit
 You are an expert in digital accessibility, WCAG guidelines, and inclusive design.

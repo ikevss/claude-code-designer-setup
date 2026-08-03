@@ -258,3 +258,13 @@ WebFetch 无法渲染 CSR 页面时，先尝试 WebSearch 找替代源；仍不�
 ### CLI 工具
 - 已检测 (13): git, gh, npx, npm, pnpm, yarn, pip, cargo, node, python, python3, rustc, curl
 <!-- CAPABILITY_LIST_END -->
+
+## 360AI 云盘同步提醒
+
+每次任务产生文件类产出（.md / .html / .docx / .pptx / .pdf 等）时，在任务收尾阶段主动问一句：
+
+> 📁 需要同步到 360AI 云盘吗？
+
+用户同意后调用 `360AICloudDisk-skill` 的 file-upload-stdio 上传。
+不需要问的情况：临时文件（docs/.tmp/ 下）、配置文件、或用户已明确说不用问。
+<!-- CAPABILITY_LIST_END -->

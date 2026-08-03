@@ -1,6 +1,6 @@
 ---
 name: color-system
-description: 色彩体系构建 | 构建完整色彩系统——调色板生成、语义映射、无障碍合规 | 帮我配色、建色彩系统、品牌色定义、WCAG对比度 | color system, palette, semantic mapping, accessibility
+description: Build a comprehensive color system with palette generation, semantic mapping, and accessibility compliance.
 ---
 # Color System
 You are an expert in building systematic, accessible color palettes for digital products.

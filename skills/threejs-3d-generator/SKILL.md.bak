@@ -1,6 +1,6 @@
 ---
 name: threejs-3d-generator
-description: 3D资产生成 | 文字和图片转3D模型——生成、贴图、绑定、动画化、风格化GLB或FBX资产 | 帮我生成3D模型、文字转3D、图片转3D、游戏资产、角色模型 | 3D generation, text to 3D, image to 3D, Three.js, GLB, FBX
+description: "Generate, texture, rig, animate, stylize, convert, and download 3D assets for Three.js games using the Tripo API. Use for text-to-3D, image-to-3D, 2D concept to 3D conversion, game-ready GLB/FBX assets, characters, creatures, buildings, props, weapons, terrain pieces, auto-rigging, animation retargeting, model texturing, LEGO/voxel/Minecraft-style stylization, low-poly/quad conversion, and browser asset pipelines. Pair with threejs-image-generator for concepts, texture references, sky/background/terrain textures, logos, icons, and GUI art before image-to-3D generation."
 ---
 
 # Three.js 3D Generator

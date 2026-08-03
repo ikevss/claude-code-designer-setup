@@ -1,6 +1,6 @@
 ---
 name: better-typography
-description: 排版精修 | Web排版——从字体选择到间距、换行到无障碍 | 帮我选字体、字体配对、可变字体设置、字距调整、OpenType特性、文本截��� | typography, fonts, variable fonts, letter-spacing, text-wrap
+description: Web typography from choosing fonts to spacing, wrapping and accessibility. Use when picking or pairing typefaces, configuring variable fonts or OpenType features, setting up a type scale, checking heading hierarchy, styling text in components, truncating text, styling underlines, selection, placeholders or carets, or reviewing frontend code for typography. Triggers on typography, fonts, font formats, woff2, variable fonts, font-weight, opentype, font-feature-settings, letter-spacing, line-height, type scale, heading hierarchy, heading levels, tabular numbers, text-wrap, truncation, line clamp, underlines, text-decoration, text selection, iOS input zoom, font smoothing, text contrast, measure, line length, text-box, smart punctuation, drop cap.
 ---
 
 # Great typography

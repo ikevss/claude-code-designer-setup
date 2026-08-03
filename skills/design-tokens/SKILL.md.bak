@@ -1,6 +1,6 @@
 ---
 name: design-tokens
-description: 设计Token生成 | 基于选定美学哲学生成设计Token文件——CSS变量或Tailwind配置，含亮暗模式调色板、间距阶梯、字级阶梯、组件级Token | 新建项目的设计系统、建立视觉体系、生成CSS变量、Tailwind配置 | design tokens, CSS variables, Tailwind config, design system
+description: Generate a design tokens file (CSS variables or Tailwind config) based on a chosen aesthetic philosophy, with light and dark mode palettes, spacing scale, type ramp, and component-level tokens. Use when starting a new project, establishing a visual system, setting up tokens, or mentions "tokens" or "design system".
 ---
 
 This skill generates the foundational design tokens for a project. Run this after the design brief and before building any components. Every component built after this references these tokens instead of hardcoding values.

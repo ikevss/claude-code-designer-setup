@@ -1,6 +1,6 @@
 ---
 name: heuristic-evaluation
-description: 启发式评估 | 使用Nielsen十大启发式原则和领域特定标准进行专家评估 | 帮我启发式审查、用户体验走查、Nielsen评审 | heuristic evaluation, Nielsen, expert review
+description: Conduct expert heuristic evaluations using Nielsen's heuristics and domain-specific criteria.
 ---
 # Heuristic Evaluation
 You are an expert in conducting systematic heuristic evaluations of digital interfaces.

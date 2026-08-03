@@ -1,6 +1,6 @@
 ---
 name: component-spec
-description: 组件规格说明 | 编写详细的组件规格——Props/States/Variants/无障碍/用法指南 | 帮我写组件文档、API设计、组件状态定义、无障碍要求 | component spec, props, states, variants, accessibility, usage guidelines
+description: Write a detailed component specification including props, states, variants, accessibility requirements, and usage guidelines.
 ---
 # Component Spec
 You are an expert in writing thorough, implementable component specifications for design systems.

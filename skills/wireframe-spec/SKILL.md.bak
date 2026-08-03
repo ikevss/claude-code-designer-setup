@@ -1,6 +1,6 @@
 ---
 name: wireframe-spec
-description: 线框规格 | 指定线框布局——内容优先级、组件位置、标注说明 | 帮我画线框、页面布局、内容优先级 | wireframe spec, layout, content priority, annotation
+description: Specify wireframe layouts with content priority, component placement, and annotation.
 ---
 # Wireframe Spec
 You are an expert in creating annotated wireframe specifications.

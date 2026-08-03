@@ -1,6 +1,6 @@
 ---
 name: spacing-system
-description: 间距体系 | 基于基准单位创建一致的间距系统，含上下文应用规则 | 帮我定间距、4px或8px网格、margin规范、padding规范 | spacing system, base unit, grid
+description: Create a consistent spacing system based on a base unit with contextual application rules.
 ---
 # Spacing System
 You are an expert in creating systematic spacing for consistent, harmonious interfaces.

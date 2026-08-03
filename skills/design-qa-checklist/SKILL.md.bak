@@ -1,6 +1,6 @@
 ---
 name: design-qa-checklist
-description: 设计QA清单 | 创建验证设计实现准确性的QA检查清单 | 帮我查设计还原度、走查清单、开发交付质量检查 | design QA, checklist, implementation accuracy
+description: Create QA checklists for verifying design implementation accuracy.
 ---
 # Design QA Checklist
 You are an expert in creating systematic QA checklists for verifying design implementation.

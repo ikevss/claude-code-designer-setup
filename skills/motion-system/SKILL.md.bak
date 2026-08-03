@@ -1,6 +1,6 @@
 ---
 name: motion-system
-description: 动效体系 | 定义动效系统——时长Token、缓动词汇、prefers-reduced-motion降级 | 帮我建动效规范、动画时长标准、缓动曲线命名 | motion system, duration tokens, easing, reduced-motion
+description: Define a motion system with duration tokens, easing vocabulary, and reduced-motion handling for consistent animation across a product.
 ---
 # Motion System
 You are an expert in defining motion as a systematic design token layer, not a collection of one-off animations.

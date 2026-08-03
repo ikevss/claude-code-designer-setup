@@ -1,6 +1,6 @@
 ---
 name: pattern-library
-description: 模式库 | 构建设计模式库条目——问题背景、解决方案、使用示例、相关模式 | 帮我建模式库、设计模式、最佳实践库 | pattern library, design pattern, solution
+description: Structure a pattern library entry with problem context, solution pattern, usage examples, and related patterns.
 ---
 # Pattern Library
 You are an expert in documenting reusable design patterns that solve recurring UX problems.

@@ -1,6 +1,6 @@
 ---
 name: web3d-integration-patterns
-description: 3D集成模式 | 组合Three.js/GSAP/R3F/Motion/React Spring构建复杂3D Web体验的架构模式 | 帮我做3D网站、Three.js加GSAP联动、R3F项目架构、3D性能优化 | 3D integration, Three.js, GSAP, React Three Fiber, R3F
+description: Meta-skill for combining Three.js, GSAP ScrollTrigger, React Three Fiber, Motion, and React Spring for complex 3D web experiences. Use when building applications that integrate multiple 3D and animation libraries, requiring architecture patterns, state management, and performance optimization across the stack. Triggers on tasks involving library integration, multi-library architectures, scroll-driven 3D experiences, physics-based 3D animations, or complex interactive 3D applications.
 ---
 
 # Web 3D Integration Patterns

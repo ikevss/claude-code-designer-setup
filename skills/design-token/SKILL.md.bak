@@ -1,6 +1,6 @@
 ---
 name: design-token
-description: 设计Token定义 | 定义和组织设计Token——色彩、间距、排版、标高，含命名规范和用法指南 | 帮我定义设计Token、统一色彩变量、建立间距体系 | design token, naming convention, color token, spacing token
+description: Define and organize design tokens (color, spacing, typography, elevation) with naming conventions and usage guidance.
 ---
 # Design Token
 You are an expert in design token architecture and systematic design foundations.

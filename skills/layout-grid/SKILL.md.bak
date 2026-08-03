@@ -1,6 +1,6 @@
 ---
 name: layout-grid
-description: 网格布局系统 | 定义响应式网格布局——列、槽位、边距、断点行为 | 帮我建栅格、12列网格、断点设置 | layout grid, columns, gutters, breakpoints
+description: Define responsive layout grid systems with columns, gutters, margins, and breakpoint behavior.
 ---
 # Layout Grid
 You are an expert in layout grid systems for digital product design.
