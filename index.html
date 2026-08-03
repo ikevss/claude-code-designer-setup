@@ -9,9 +9,11 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='white'/%3E%3Cpolygon points='32,8 50,24 44,48 20,48 14,24' fill='none' stroke='%2316a085' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpolyline points='20,48 32,56 44,48' fill='none' stroke='%2316a085' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cline x1='32' y1='8' x2='32' y2='56' stroke='%2316a085' stroke-width='2'/%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #f5f6f8; --surface: #ffffff; --surface-hover: #fafbfc; --border: #e8eaef;
-    --accent: #16a085; --accent-light: #e8f5f1; --text: #1a1d2e; --text-dim: #6b7280;
-    --radius: 14px; --shadow-sm: 0 1px 3px rgba(0,0,0,.04); --shadow-md: 0 4px 20px rgba(0,0,0,.06);
+    --bg: #f7f8fa; --surface: #ffffff; --surface-hover: #fafbfc; --border: #e4e7ec;
+    --accent: #16a085; --accent-light: #e8f5f1; --accent-bg: #f0fdf8;
+    --text: #1a1d2e; --text-dim: #6b7280; --text-muted: #9ca3af;
+    --radius: 14px; --radius-sm: 10px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.04); --shadow-md: 0 4px 20px rgba(0,0,0,.06);
     --spring: cubic-bezier(0.34,1.56,0.64,1);
     --font: "SF Pro Display","PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
   }
@@ -19,13 +21,18 @@
   html{scroll-behavior:smooth;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   body{line-height:1.6;overflow-x:hidden}
-  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle,rgba(22,160,133,.12) 1px,transparent 1px);background-size:40px 40px}
-  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px 256px}
-  @media(prefers-reduced-motion:reduce){body::before,body::after{display:none}}
-  .container{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+  .container{max-width:1140px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+  /* ═══ 纹理背景 ═══ */
+  .texture{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .texture .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(22,160,133,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(22,160,133,.06) 1px,transparent 1px);background-size:60px 60px}
+  .texture .noise{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px 200px}
+  .texture .gradient{position:absolute;top:-40%;right:-20%;width:800px;height:800px;background:radial-gradient(circle,rgba(22,160,133,.06) 0%,transparent 70%);border-radius:50%}
+  .texture .gradient.bl{top:auto;bottom:-30%;left:-20%;right:auto;width:600px;height:600px}
+  @media(prefers-reduced-motion:reduce){.texture .grid,.texture .noise{display:none}}
 
   /* ═══ 导航 ═══ */
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 0}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 0}
   nav .container{display:flex;align-items:center;justify-content:space-between}
   .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-size:1.05rem;font-weight:700;letter-spacing:-.01em;transition:opacity .2s}
   .nav-logo:hover{opacity:.7}
@@ -39,19 +46,8 @@
   nav .gh-btn:hover{border-color:var(--accent);box-shadow:0 0 0 3px rgba(22,160,133,.08)}
 
   /* ═══ Hero ═══ */
-  .hero{min-height:100dvh;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#f0fdf8 0%,var(--bg) 100%)}
-  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(22,160,133,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(22,160,133,.04) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 75% 50%,#000 30%,transparent 70%);mask-image:radial-gradient(ellipse 80% 70% at 75% 50%,#000 30%,transparent 70%)}
-  .hero-geo{position:absolute;inset:0;pointer-events:none;z-index:0}
-  .hero-geo .ring{position:absolute;border-radius:50%;border:1.5px solid rgba(22,160,133,.08)}
-  .hero-geo .ring.r1{width:600px;height:600px;top:-300px;right:-200px}
-  .hero-geo .ring.r2{width:400px;height:400px;top:-150px;right:-100px;border-width:1px;border-style:dashed}
-  .hero-geo .ring.r3{width:700px;height:700px;bottom:-500px;left:-300px;border-width:1px;border-color:rgba(22,160,133,.05)}
-  .hero-geo .dot{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--accent)}
-  .hero-geo .dot.d1{top:18%;right:22%}
-  .hero-geo .dot.d2{top:60%;right:8%;opacity:.5}
-  .hero-geo .dot.d3{top:40%;left:8%;opacity:.3}
-  .hero-geo .dot.d4{bottom:25%;right:28%;width:2px;height:2px;opacity:.4}
-  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
+  .hero{min-height:100dvh;display:flex;align-items:center;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;width:100%}
   .hero-text{position:relative;z-index:2}
   .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-light);border:1px solid rgba(22,160,133,.15);padding:6px 18px;border-radius:50px;font-size:.82rem;color:var(--accent);margin-bottom:28px;font-weight:500}
   .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:dot-pulse 2s ease-in-out infinite}
@@ -61,117 +57,173 @@
   .hero p{font-size:1.1rem;color:var(--text-dim);max-width:480px;line-height:1.7;margin-bottom:40px}
   .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:600;font-size:1rem;padding:15px 36px;border-radius:12px;text-decoration:none;transition:transform .25s var(--spring),box-shadow .25s;box-shadow:0 2px 12px rgba(22,160,133,.25)}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(22,160,133,.35)}
-  .btn-primary:active{transform:translateY(0) scale(.98);transition:transform .08s}
+  .btn-primary:active{transform:translateY(0) scale(.98)}
   .btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
-
-  /* ── Hero 视觉 ── */
   .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:500px}
   .gem-stage{position:relative;width:280px;height:280px;animation:gem-float 6s ease-in-out infinite}
   @media(prefers-reduced-motion:reduce){.gem-stage{animation:none}}
   .gem-core{position:absolute;inset:40px;display:flex;align-items:center;justify-content:center}
   .gem-core svg{width:100%;height:100%}
   @keyframes gem-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-  .gem-core .g-draw{stroke-dasharray:600;stroke-dashoffset:600;animation:gem-draw 2s ease-out forwards}
+  .orbit{position:absolute;inset:0;border-radius:50%;border:1.2px solid rgba(22,160,133,.1);animation:orbit-spin 20s linear infinite}
+  .orbit:nth-child(2){inset:20px;animation-duration:14s;animation-direction:reverse;border-color:rgba(22,160,133,.07)}
+  .orbit:nth-child(3){inset:-20px;animation-duration:26s;border-color:rgba(22,160,133,.05)}
+  @keyframes orbit-spin{to{transform:rotate(360deg)}}
+  .orbit-dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--accent);top:-2.5px;left:50%;margin-left:-2.5px}
+  @keyframes gem-draw{to{stroke-dashoffset:0}}
+  .gem-core .g-draw{stroke-dasharray:800;stroke-dashoffset:800;animation:gem-draw 2s ease-out forwards}
   .gem-core .g-draw:nth-child(2){animation-delay:.15s}
   .gem-core .g-draw:nth-child(3){animation-delay:.3s}
   .gem-core .g-draw:nth-child(4){animation-delay:.45s}
   .gem-core .g-draw:nth-child(5){animation-delay:.6s}
   .gem-core .g-draw:nth-child(6){animation-delay:.75s}
   .gem-core .g-draw:nth-child(7){animation-delay:.9s}
-  @keyframes gem-draw{to{stroke-dashoffset:0}}
-  @keyframes gem-fade-in{0%{opacity:0}100%{opacity:1}}
+  @keyframes gem-fade-in{to{opacity:1}}
   .gem-core .g-face{opacity:0;animation:gem-fade-in .6s ease-out forwards}
   .gem-core .g-face:nth-child(2){animation-delay:.5s}
   .gem-core .g-face:nth-child(3){animation-delay:.7s}
   .gem-core .g-face:nth-child(4){animation-delay:.9s}
-  .orbit{position:absolute;inset:0;border-radius:50%;border:1.2px solid rgba(22,160,133,.1);animation:orbit-spin 20s linear infinite}
-  .orbit:nth-child(2){inset:20px;animation-duration:14s;animation-direction:reverse;border-color:rgba(22,160,133,.07)}
-  .orbit:nth-child(3){inset:-20px;animation-duration:26s;border-color:rgba(22,160,133,.05)}
-  @keyframes orbit-spin{to{transform:rotate(360deg)}}
-  .orbit-dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--accent);top:-2.5px;left:50%;margin-left:-2.5px;animation:orbit-glow 3s ease-in-out infinite}
-  .orbit:nth-child(2) .orbit-dot{animation-delay:.8s;width:4px;height:4px;top:-2px;margin-left:-2px}
-  .orbit:nth-child(3) .orbit-dot{animation-delay:1.6s;width:3px;height:3px;top:-1.5px;margin-left:-1.5px}
-  @keyframes orbit-glow{0%,100%{box-shadow:0 0 4px var(--accent)}50%{box-shadow:0 0 16px rgba(22,160,133,.6)}}
 
-  /* ═══ Stats ═══ */
-  .stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;padding:0 0 100px}
-  .stat{text-align:center}
-  .stat-num{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;color:var(--accent)}
-  .stat-label{font-size:.9rem;color:var(--text-dim);margin-top:4px}
+  /* ═══ Section 通用 ═══ */
+  section{padding:100px 0}
+  .section-label{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:12px}
+  .section-title{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px;line-height:1.2}
+  .section-desc{color:var(--text-dim);font-size:1.05rem;max-width:520px;margin-bottom:64px;line-height:1.65}
 
-  /* ═══ 能力流水线 ═══ */
-  .pipeline{padding:100px 0}
-  .pipeline-header{margin-bottom:80px}
-  .pipeline-header h2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
-  .pipeline-header p{color:var(--text-dim);font-size:1.05rem;max-width:480px}
-  .pipe-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:0;padding:48px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(32px);transition:opacity .7s ease-out,transform .7s var(--spring)}
-  .pipe-row:last-child{border-bottom:none}
-  .pipe-row.visible{opacity:1;transform:translateY(0)}
-  .pipe-row:nth-child(even){direction:rtl}
-  .pipe-row:nth-child(even) .pipe-info{direction:ltr}
-  .pipe-visual{display:flex;align-items:center;justify-content:center;min-height:200px;position:relative}
-  .pipe-info h3{font-size:1.25rem;font-weight:700;margin-bottom:10px;letter-spacing:-.01em}
-  .pipe-info p{color:var(--text-dim);font-size:.95rem;line-height:1.65;margin-bottom:14px}
-  .pipe-info .tags{display:flex;gap:6px;flex-wrap:wrap}
-  .pipe-info .tag{background:var(--bg);border:1px solid var(--border);padding:3px 10px;border-radius:6px;font-size:.76rem;color:var(--text-dim)}
+  /* ═══ Before/After 场景 ═══ */
+  .scenarios{padding:100px 0;position:relative}
+  .scenario-row{display:grid;grid-template-columns:1fr 48px 1fr;gap:0;align-items:start;margin-bottom:24px;opacity:0;transform:translateY(32px);transition:opacity .7s ease-out,transform .7s var(--spring)}
+  .scenario-row.visible{opacity:1;transform:translateY(0)}
+  .scenario-col{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+  .scenario-col .col-head{padding:14px 20px;font-size:.78rem;font-weight:600;letter-spacing:.04em;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+  .col-head .col-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+  .col-head.before .col-dot{background:#e5e7eb}
+  .col-head.before{background:#fafafa;color:var(--text-muted)}
+  .col-head.after .col-dot{background:var(--accent)}
+  .col-head.after{background:var(--accent-bg);color:var(--accent)}
+  .col-body{padding:28px 24px;min-height:120px;display:flex;flex-direction:column;gap:12px}
+  .col-body .hint{font-size:.82rem;color:var(--text-muted);font-style:italic;line-height:1.5}
+  .col-body .result{font-size:.92rem;color:var(--text);line-height:1.6;font-weight:500}
+  .col-body .mini-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+  .col-body .mini-tag{padding:3px 10px;border-radius:6px;font-size:.76rem;font-weight:500}
+  .col-body .mini-tag.bad{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+  .col-body .mini-tag.good{background:var(--accent-light);color:var(--accent);border:1px solid rgba(22,160,133,.15)}
+  .arrow-col{display:flex;align-items:center;justify-content:center;padding-top:48px}
+  .arrow-col svg{color:var(--accent);width:32px;height:32px;flex-shrink:0;opacity:.6}
+  .scenario-label{font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:8px}
 
   /* ═══ 安装 ═══ */
-  .install-section{padding:100px 0;background:var(--surface)}
-  .install-section h2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
-  .install-section .subtitle{color:var(--text-dim);font-size:1.05rem;max-width:480px;margin-bottom:48px}
-  .install-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:40px;max-width:760px;transition:border-color .3s,box-shadow .3s}
-  .install-card:hover{border-color:rgba(22,160,133,.2);box-shadow:var(--shadow-md)}
+  .install-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .install-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:40px;max-width:760px;box-shadow:var(--shadow-sm)}
   .install-card h3{font-size:1rem;font-weight:700;margin-bottom:6px}
   .install-card h3:not(:first-child){margin-top:28px}
-  .install-card code{display:block;background:var(--surface);padding:18px 24px;border-radius:10px;font-family:"SF Mono","Fira Code","Cascadia Code",monospace;font-size:.9rem;color:var(--text);margin:12px 0;overflow-x:auto;border:1px solid var(--border)}
+  .install-card code{display:block;background:var(--surface);padding:18px 24px;border-radius:var(--radius-sm);font-family:"SF Mono","Fira Code","Cascadia Code",monospace;font-size:.9rem;color:var(--text);margin:12px 0;overflow-x:auto;border:1px solid var(--border)}
   .install-notes{margin-top:24px;color:var(--text-dim);font-size:.88rem;display:flex;gap:24px;flex-wrap:wrap}
 
   /* ═══ 表格 ═══ */
-  .agents-section,.triggers-section{padding:100px 0}
-  .agents-section h2,.triggers-section h2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
-  .agents-section .subtitle,.triggers-section .subtitle{color:var(--text-dim);font-size:1.05rem;max-width:480px;margin-bottom:48px}
   .table-wrap{overflow-x:auto;scrollbar-gutter:stable}
   .trigger-table{width:100%;border-collapse:collapse;white-space:nowrap}
   .trigger-table th{text-align:left;padding:14px 16px;font-size:.85rem;color:var(--accent);border-bottom:1px solid var(--border);font-weight:600;background:var(--surface)}
   .trigger-table td{padding:12px 16px;font-size:.92rem;border-bottom:1px solid var(--border)}
-  .trigger-table td:first-child{color:var(--text);white-space:normal;min-width:180px;font-weight:500}
+  .trigger-table td:first-child{color:var(--text);white-space:normal;min-width:200px;font-weight:500}
   .trigger-table td:last-child{color:var(--text-dim);font-size:.85rem}
   .trigger-table tbody tr{transition:background .15s}
   .trigger-table tbody tr:hover{background:var(--accent-light)}
 
   /* ═══ Footer ═══ */
   footer{border-top:1px solid var(--border);padding:48px 0;text-align:center;color:var(--text-dim);font-size:.85rem;background:var(--surface)}
-  footer a{color:var(--accent);text-decoration:none;transition:color .2s}
+  footer a{color:var(--accent);text-decoration:none}
   footer a:hover{opacity:.7}
 
-  /* ═══ 滚动入场描边动画 ═══ */
-  @keyframes draw-stroke{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
-  .pipe-row .draw-in *{stroke-dasharray:1000;stroke-dashoffset:1000}
-  .pipe-row.visible .draw-in *{animation:draw-stroke 1.2s ease-out forwards}
+  /* ═══ 拖动对比滑块 ═══ */
+  .compare-slider{position:relative;width:100%;max-width:900px;margin:0 auto;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-md);user-select:none;-webkit-user-select:none;touch-action:pan-y;cursor:ew-resize}
+  .compare-slider .compare-track{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden}
+  .compare-slider .compare-before{position:absolute;inset:0;z-index:1}
+  .compare-slider .compare-after{position:absolute;inset:0;z-index:2;clip-path:inset(0 50% 0 0)}
+  .compare-slider .compare-divider{position:absolute;top:0;bottom:0;width:3px;background:var(--accent);z-index:3;left:50%;transform:translateX(-50%);pointer-events:none;box-shadow:0 0 12px rgba(22,160,133,.3)}
+  .compare-slider .compare-handle{position:absolute;top:50%;z-index:4;width:44px;height:44px;background:var(--accent);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 16px rgba(22,160,133,.3)}
+  .compare-handle svg{width:20px;height:20px;color:#fff}
+  .compare-slider .compare-labels{position:absolute;bottom:16px;z-index:5;display:flex;justify-content:space-between;width:100%;padding:0 20px;pointer-events:none}
+  .compare-slider .compare-label{font-size:.78rem;font-weight:600;padding:4px 12px;border-radius:6px;letter-spacing:.03em}
+  .compare-slider .compare-label.before-label{background:rgba(0,0,0,.6);color:#fca5a5}
+  .compare-slider .compare-label.after-label{background:rgba(22,160,133,.85);color:#fff}
 
-  /* ═══ 响应式 ═══ */
+  /* ═══ 对比内容：模拟真实 UI ═══ */
+  .mock-page{padding:28px 20px;min-height:100%}
+  .mock-page .mock-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+  .mock-page .mock-nav .mock-logo{font-weight:700;font-size:1rem}
+  .mock-page .mock-nav .mock-menu{display:flex;gap:18px}
+  .mock-page .mock-nav .mock-menu span{width:40px;height:6px;border-radius:3px;display:block}
+  .mock-page .mock-title{font-size:1.2rem;font-weight:700;margin-bottom:4px}
+  .mock-page .mock-subtitle{font-size:.78rem;margin-bottom:20px}
+  .mock-page .mock-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .mock-page .mock-card{border-radius:10px;padding:20px 16px}
+  .mock-page .mock-card .mock-card-title{font-size:.82rem;font-weight:600;margin-bottom:4px}
+  .mock-page .mock-card .mock-card-val{font-size:1.6rem;font-weight:800;margin-bottom:2px}
+  .mock-page .mock-card .mock-card-sub{font-size:.72rem}
+  .mock-page .mock-btn{display:inline-block;padding:10px 22px;border-radius:8px;font-size:.82rem;font-weight:600;margin-top:20px}
+
+  /* ── Before: 业余版本 ── */
+  .mock-before{background:linear-gradient(135deg,#fefefe 0%,#f9fafb 100%);font-family:Arial,sans-serif}
+  .mock-before .mock-nav{background:#fff;padding:12px 16px;border-radius:8px;border:1px solid #e5e7eb;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  .mock-before .mock-logo{color:#1f2937}
+  .mock-before .mock-menu span{background:#9ca3af}
+  .mock-before .mock-title{color:#111827;margin-top:8px}
+  .mock-before .mock-subtitle{color:#6b7280}
+  .mock-before .mock-card{background:#fff;border:1px solid #e5e7eb;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .mock-before .mock-card:nth-child(1) .mock-card-val{color:#2563eb}
+  .mock-before .mock-card:nth-child(2) .mock-card-val{color:#d97706}
+  .mock-before .mock-card:nth-child(3) .mock-card-val{color:#dc2626}
+  .mock-before .mock-card-title{color:#374151}
+  .mock-before .mock-card-sub{color:#9ca3af}
+  .mock-before .mock-btn{background:#2563eb;color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+
+  /* ── After: 专业版本 ── */
+  .mock-after{background:#f8fafb;font-family:"SF Pro Display","PingFang SC",-apple-system,sans-serif}
+  .mock-after .mock-nav{padding:12px 0;border-bottom:1px solid #e8eaef}
+  .mock-after .mock-logo{color:#16a085}
+  .mock-after .mock-menu span{background:#d1d5db}
+  .mock-after .mock-title{color:#111827;margin-top:8px;font-size:1.2rem}
+  .mock-after .mock-subtitle{color:#6b7280}
+  .mock-after .mock-card{background:#fff;border:1px solid #e8eaef;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+  .mock-after .mock-card:nth-child(1){border-top:3px solid #16a085}
+  .mock-after .mock-card .mock-card-val{color:#111827;font-variant-numeric:tabular-nums;font-family:"SF Mono","Fira Code",monospace}
+  .mock-after .mock-card-title{color:#374151}
+  .mock-after .mock-card-sub{color:#9ca3af}
+  .mock-after .mock-btn{background:#16a085;color:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(22,160,133,.2)}
   @media(max-width:768px){
     .hero-grid{grid-template-columns:1fr;gap:28px}
     .hero-visual{height:280px;order:-1}
     .gem-stage{width:200px;height:200px}
     .hero{min-height:auto;padding:140px 0 40px}
-    .stats{gap:24px;padding:0 0 60px}
-    .stat-num{font-size:1.8rem}
-    .pipe-row{grid-template-columns:1fr;gap:20px;direction:ltr!important;padding:36px 0}
-    .pipe-row:nth-child(even) .pipe-info{direction:ltr}
-    .pipe-visual{min-height:auto;justify-content:flex-start}
-    .pipeline-header{margin-bottom:48px}
+    .scenario-row{grid-template-columns:1fr;gap:0}
+    .scenario-row .scenario-col:first-child{margin-bottom:8px}
+    .scenario-row .scenario-col:last-child{margin-top:8px}
+    .arrow-col{display:flex;padding:0;height:36px;transform:rotate(90deg)}
+    section{padding:60px 0}
+    .scenarios{padding:60px 0}
+    .section-title{font-size:1.5rem}
     .install-card code{font-size:.75rem;padding:12px 16px}
     .install-notes{flex-direction:column;gap:2px}
     .trigger-table td,.trigger-table th{padding:10px 12px;font-size:.8rem}
-    .pipeline,.install-section,.agents-section,.triggers-section{padding:60px 0}
     nav .gh-btn{display:none}
     nav a{font-size:.82rem;margin-left:14px}
     .nav-logo span{display:none}
+    .mock-page .mock-grid{grid-template-columns:1fr}
+    .mock-page{padding:16px 12px}
+    .mock-page .mock-nav .mock-menu{gap:8px}
+    .mock-page .mock-nav .mock-menu span{width:24px;height:4px}
+    .compare-slider{max-width:100%}
+    .compare-slider .compare-labels{padding:0 8px;bottom:8px}
+    .compare-slider .compare-label{font-size:.68rem;padding:3px 8px}
+    .compare-handle{width:32px;height:32px}
+    .compare-handle svg{width:14px;height:14px}
   }
 </style>
 </head>
 <body>
+
+<div class="texture" aria-hidden="true"><div class="grid"></div><div class="noise"></div><div class="gradient"></div><div class="gradient bl"></div></div>
 
 <nav aria-label="主导航">
   <div class="container">
@@ -187,32 +239,28 @@
       <span>Design</span> SkillHub
     </a>
     <div class="nav-links">
-      <a href="#pipeline">能力</a>
+      <a href="#scenarios">场景</a>
       <a href="#install">安装</a>
       <a href="#agents">适配</a>
       <a href="#triggers">触发词</a>
       <a href="https://github.com/ikevss/design-skillhub" class="gh-btn" target="_blank" rel="noopener">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-        GitHub
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>GitHub
       </a>
     </div>
   </div>
 </nav>
 
 <main>
+<!-- ═══════════ Hero ═══════════ -->
 <section class="hero">
-  <div class="hero-geo" aria-hidden="true">
-    <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
-    <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><div class="dot d4"></div>
-  </div>
   <div class="container hero-grid">
     <div class="hero-text">
       <div class="hero-badge"><span class="dot"></span>130+ skills · 全中文 · 零学习成本</div>
       <h1>说中文<br>让 AI <em>做设计</em></h1>
-      <p>不用学设计软件，不用记配色规则。你只管用自己的话描述想要什么，剩下的交给它。</p>
-      <a href="#install" class="btn-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        免费安装
+      <p>不用学设计软件，不用记配色规则。像跟设计师同事说话一样，用你自己的语言描述想要什么，剩下的交给它。</p>
+      <a href="#scenarios" class="btn-primary">
+        看看能做到什么
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
       </a>
     </div>
     <div class="hero-visual" aria-hidden="true">
@@ -238,118 +286,226 @@
   </div>
 </section>
 
-<section class="pipeline" id="pipeline" aria-labelledby="pipe-title">
+<!-- ═══════════ 场景对比 ═══════════ -->
+<section class="scenarios" id="scenarios" aria-labelledby="scenarios-title">
   <div class="container">
-    <div class="pipeline-header">
-      <h2 id="pipe-title">从决策到交付，一条流水线</h2>
-      <p>覆盖设计全流程。每一层都基于下层产出，形成完整的工具链。</p>
-    </div>
+    <div class="section-label">你能做哪些事</div>
+    <h2 class="section-title" id="scenarios-title">不用学设计，说出来就行</h2>
+    <p class="section-desc">每个场景都是真实对话。你说左边的日常问题，它给你右边的结果。</p>
 
-    <div class="pipe-row" data-reveal>
-      <div class="pipe-visual">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
-          <g class="draw-in">
-            <circle cx="100" cy="80" r="50" stroke="#16a085" stroke-width="1.5" opacity=".18"/>
-            <circle cx="100" cy="80" r="32" stroke="#16a085" stroke-width="1.5" opacity=".3"/>
-            <circle cx="100" cy="80" r="14" stroke="#16a085" stroke-width="2.5"/>
-            <circle cx="100" cy="80" r="5" fill="#16a085"/>
-            <line x1="100" y1="18" x2="100" y2="30" stroke="#16a085" stroke-width="2" opacity=".5"/>
-            <line x1="100" y1="130" x2="100" y2="142" stroke="#16a085" stroke-width="2" opacity=".5"/>
-            <line x1="18" y1="80" x2="30" y2="80" stroke="#16a085" stroke-width="2" opacity=".5"/>
-            <line x1="170" y1="80" x2="182" y2="80" stroke="#16a085" stroke-width="2" opacity=".5"/>
-          </g>
-        </svg>
+    <!-- 场景 1: 审查页面 -->
+    <div class="scenario-row" data-reveal>
+      <div class="scenario-col">
+        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
+        <div class="col-body">
+          <div class="scenario-label">"帮我看看这个页面有什么问题"</div>
+          <div class="hint">刚做完一个落地页，总觉得哪里不太对劲，但具体说不上来。发给同事看也只会说"还行吧"。</div>
+          <div class="mini-tags"><span class="mini-tag bad">不确定哪里有问题</span><span class="mini-tag bad">缺乏设计反馈</span></div>
+        </div>
       </div>
-      <div class="pipe-info">
-        <h3>设计决策</h3>
-        <p>把页面截图丢进去，它会像设计总监一样告诉你哪里不对——配色太花、留白不够、层级混乱、文案难懂。不用学设计理论，它直接给答案。</p>
-        <div class="tags"><span class="tag">帮我看看这页面</span><span class="tag">配色怎么改</span><span class="tag">动效该不该加</span></div>
+      <div class="arrow-col">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </div>
-    </div>
-
-    <div class="pipe-row" data-reveal>
-      <div class="pipe-visual">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
-          <g class="draw-in">
-            <rect x="24" y="20" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2"/>
-            <rect x="108" y="20" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".35"/>
-            <rect x="24" y="88" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".22"/>
-            <rect x="108" y="88" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".12"/>
-            <circle cx="58" cy="46" r="10" stroke="#1abc9c" stroke-width="2"/>
-            <rect x="72" y="38" width="24" height="4" rx="2" fill="#16a085" opacity=".2"/>
-          </g>
-        </svg>
-      </div>
-      <div class="pipe-info">
-        <h3>设计系统</h3>
-        <p>统一所有页面的颜色、字体、间距。给整个项目建一套"设计宪法"，之后不管加多少新页面，看起来都是同一款产品。</p>
-        <div class="tags"><span class="tag">统一项目配色</span><span class="tag">建暗色模式</span><span class="tag">定字体间距</span></div>
+      <div class="scenario-col">
+        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
+        <div class="col-body">
+          <div class="result">10 项启发式评估 + 认知负荷分析 + 多角色走查。告诉你配色对比度不够、3 个按钮离太近误触风险大、正文行距太窄影响阅读。</div>
+          <div class="mini-tags"><span class="mini-tag good">配色方案建议</span><span class="mini-tag good">层级优化</span><span class="mini-tag good">行动清单</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="pipe-row" data-reveal>
-      <div class="pipe-visual">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
-          <g class="draw-in">
-            <polygon points="30,30 140,80 30,130" fill="none" stroke="#16a085" stroke-width="2.2" stroke-linejoin="round"/>
-            <circle cx="140" cy="80" r="5" fill="#16a085"/>
-            <circle cx="30" cy="30" r="4" fill="#16a085" opacity=".4"/>
-            <circle cx="30" cy="130" r="4" fill="#16a085" opacity=".4"/>
-          </g>
-        </svg>
+    <!-- 场景 2: 统一风格 -->
+    <div class="scenario-row" data-reveal>
+      <div class="scenario-col">
+        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
+        <div class="col-body">
+          <div class="scenario-label">"新做的几个页面跟之前的长得不像一家人"</div>
+          <div class="hint">项目越做越大，首页是蓝色调、设置页是灰色调、弹窗的按钮圆角有的 8px 有的 14px。每次加新页面都要翻旧页面抄样式。</div>
+          <div class="mini-tags"><span class="mini-tag bad">风格不一致</span><span class="mini-tag bad">颜色/间距混乱</span></div>
+        </div>
       </div>
-      <div class="pipe-info">
-        <h3>动效实现</h3>
-        <p>让页面"活"起来——按钮按下有弹性、卡片滑入自然流畅、加载时有呼吸感。告诉它想要什么感觉，不用写一行复杂代码。</p>
-        <div class="tags"><span class="tag">按钮加弹性反馈</span><span class="tag">卡片滚入效果</span><span class="tag">毛玻璃面板</span></div>
+      <div class="arrow-col">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </div>
-    </div>
-
-    <div class="pipe-row" data-reveal>
-      <div class="pipe-visual">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
-          <g class="draw-in">
-            <rect x="16" y="20" width="168" height="120" rx="12" stroke="#16a085" stroke-width="2"/>
-            <circle cx="56" cy="68" r="24" stroke="#1abc9c" stroke-width="2.2"/>
-            <circle cx="56" cy="68" r="7" fill="#16a085" opacity=".3"/>
-            <path d="m 136,76 -30,-26 0,18 -10,-10" stroke="#16a085" stroke-width="2" stroke-linejoin="round" fill="none"/>
-          </g>
-        </svg>
-      </div>
-      <div class="pipe-info">
-        <h3>视觉创建</h3>
-        <p>给它一段文字或数据，还你一张配图、一份信息图、一个流程图。写文章需要封面？给。PPT 少张图？给。数据需要可视化？给。</p>
-        <div class="tags"><span class="tag">文章配图</span><span class="tag">信息图</span><span class="tag">流程图</span><span class="tag">数据图表</span></div>
+      <div class="scenario-col">
+        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
+        <div class="col-body">
+          <div class="result">扫描你现有的全部页面，自动提取出颜色、字体、间距、圆角统一成一套 Token。之后做新页面直接引用这套规范，再也不会出现"东拼西凑"的感觉。</div>
+          <div class="mini-tags"><span class="mini-tag good">自动提取Token</span><span class="mini-tag good">全局统一</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="pipe-row" data-reveal>
-      <div class="pipe-visual">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
-          <g class="draw-in">
-            <rect x="20" y="24" width="160" height="112" rx="10" stroke="#16a085" stroke-width="2"/>
-            <line x1="20" y1="48" x2="180" y2="48" stroke="#16a085" stroke-width="1.2" opacity=".25"/>
-            <rect x="42" y="64" width="64" height="20" rx="5" stroke="#1abc9c" stroke-width="2"/>
-            <rect x="118" y="64" width="42" height="20" rx="5" stroke="#16a085" stroke-width="1.5" opacity=".4"/>
-            <rect x="42" y="96" width="42" height="20" rx="5" stroke="#16a085" stroke-width="1.5" opacity=".25"/>
-            <rect x="96" y="96" width="64" height="20" rx="5" stroke="#16a085" stroke-width="1.5" opacity=".15"/>
-          </g>
-        </svg>
+    <!-- 场景 3: 动效 -->
+    <div class="scenario-row" data-reveal>
+      <div class="scenario-col">
+        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
+        <div class="col-body">
+          <div class="scenario-label">"页面像 PPT 一样死板，一点动感都没有"</div>
+          <div class="hint">按钮按下没有反馈，切换页面是硬切，加载时只有白屏。想做动效但写动画代码太耗时，试了几次效果都不自然。</div>
+          <div class="mini-tags"><span class="mini-tag bad">生硬死板</span><span class="mini-tag bad">不会写动效</span></div>
+        </div>
       </div>
-      <div class="pipe-info">
-        <h3>更多能力</h3>
-        <p>一键生成整份 PPT；检查你的页面是否无障碍；和 Figma 双向同步；代码直出 React、Tailwind、Next.js、SwiftUI 组件。</p>
-        <div class="tags"><span class="tag">一键生成PPT</span><span class="tag">无障碍检查</span><span class="tag">Figma同步</span><span class="tag">代码直出</span></div>
+      <div class="arrow-col">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+      <div class="scenario-col">
+        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
+        <div class="col-body">
+          <div class="result">你只需要描述感觉："按钮按下要有弹性""卡片滑进来要自然""加载的时候别让用户干等"。它直接给你写好动画代码，缓动曲线、持续时间都调好了。</div>
+          <div class="mini-tags"><span class="mini-tag good">弹性按钮</span><span class="mini-tag good">滚动入场</span><span class="mini-tag good">加载过渡</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 场景 4: 配图/图表 -->
+    <div class="scenario-row" data-reveal>
+      <div class="scenario-col">
+        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
+        <div class="col-body">
+          <div class="scenario-label">"这篇文章需要封面图，但找不到合适的素材"</div>
+          <div class="hint">翻遍了 Unsplash 找不到合适的图。公司没有设计师可以帮忙。自己用工具画的图拿不出手。</div>
+          <div class="mini-tags"><span class="mini-tag bad">没图用</span><span class="mini-tag bad">素材不合适</span><span class="mini-tag bad">缺设计师</span></div>
+        </div>
+      </div>
+      <div class="arrow-col">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+      <div class="scenario-col">
+        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
+        <div class="col-body">
+          <div class="result">描述你想要什么风格和主题，直接生成配图。数据分析报告需要图表？把数据给它，生成可视化。复杂流程需要说明？画出清晰的信息图。一句话的事。</div>
+          <div class="mini-tags"><span class="mini-tag good">封面生成</span><span class="mini-tag good">数据图表</span><span class="mini-tag good">信息图</span><span class="mini-tag good">插图</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 场景 5: PPT -->
+    <div class="scenario-row" data-reveal>
+      <div class="scenario-col">
+        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
+        <div class="col-body">
+          <div class="scenario-label">"明天要汇报，PPT 还是白板"</div>
+          <div class="hint">花 3 个小时做出来的 PPT 像实习生水平。排版对不齐、配色辣眼睛、每页长得都不一样。</div>
+          <div class="mini-tags"><span class="mini-tag bad">做PPT耗时</span><span class="mini-tag bad">排版业余</span></div>
+        </div>
+      </div>
+      <div class="arrow-col">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+      <div class="scenario-col">
+        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
+        <div class="col-body">
+          <div class="result">把你的内容大纲给它，整份 PPT 一键生成——每页都有精心设计的排版、配色统一、图表自动生成。支持导出可编辑的 pptx，不满意随时微调。</div>
+          <div class="mini-tags"><span class="mini-tag good">一键生成</span><span class="mini-tag good">可编辑pptx</span><span class="mini-tag good">21套模板</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 场景 6: 拖动对比（Before/After 视觉） -->
+    <div class="scenario-row" data-reveal>
+      <div class="scenario-col">
+        <div class="col-head before"><span class="col-dot"></span>你做出来的页面</div>
+        <div class="col-body">
+          <div class="scenario-label">"组件样式很素，像没被设计过"</div>
+          <div class="hint">颜色各自为政、卡片没有层次感、数字用默认字体看起来廉价、按钮选了蓝色但跟整体不搭。自己觉得"能看"，但给客户看的时候心里没底。</div>
+          <div class="mini-tags"><span class="mini-tag bad">颜色混乱</span><span class="mini-tag bad">无层级</span><span class="mini-tag bad">廉价感</span></div>
+        </div>
+      </div>
+      <div class="arrow-col">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </div>
+      <div class="scenario-col">
+        <div class="col-head after"><span class="col-dot"></span>AI 帮你改之后</div>
+        <div class="col-body">
+          <div class="result">统一品牌色、建立卡片层级（品牌色顶边 + 微阴影）、数字启用等宽字体不再跳动、按钮换成匹配的绿色。现在你觉得"能发给客户看了"。</div>
+          <div class="mini-tags"><span class="mini-tag good">品牌色统一</span><span class="mini-tag good">等宽数字</span><span class="mini-tag good">层次清晰</span></div>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
 
+<!-- ═══════════ 拖动对比 ═══════════ -->
+<section style="padding-top:0" aria-labelledby="compare-title">
+  <div class="container">
+    <p class="section-desc" style="text-align:center;margin:0 auto 40px;max-width:600px" id="compare-title">拖动中间的分界线，亲眼看看改前和改后的差距有多大</p>
+    <div class="compare-slider" id="compareSlider">
+      <div class="compare-labels">
+        <span class="compare-label before-label">改之前</span>
+        <span class="compare-label after-label">改之后</span>
+      </div>
+      <div class="compare-track">
+        <div class="compare-before">
+          <div class="mock-page mock-before">
+            <div class="mock-nav"><span class="mock-logo">● MyDashboard</span><div class="mock-menu"><span></span><span></span><span></span></div></div>
+            <div style="padding:0 4px">
+              <div class="mock-title">项目总览</div>
+              <div class="mock-subtitle">本周数据概览 · 最后更新 2 小时前</div>
+              <div class="mock-grid">
+                <div class="mock-card">
+                  <div class="mock-card-title">活跃用户</div>
+                  <div class="mock-card-val">1,024</div>
+                  <div class="mock-card-sub">↑ 12% vs 上周</div>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-card-title">营收</div>
+                  <div class="mock-card-val">¥45,280</div>
+                  <div class="mock-card-sub">↑ 8% vs 上周</div>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-card-title">待处理工单</div>
+                  <div class="mock-card-val">37</div>
+                  <div class="mock-card-sub">⚠ 需立即处理</div>
+                </div>
+              </div>
+              <a class="mock-btn">查看详细报告 →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compare-after">
+          <div class="mock-page mock-after">
+            <div class="mock-nav"><span class="mock-logo">MyDashboard</span><div class="mock-menu"><span></span><span></span><span></span></div></div>
+            <div style="padding:0 4px">
+              <div class="mock-title">项目总览</div>
+              <div class="mock-subtitle">本周数据概览 · 最后更新 2 小时前</div>
+              <div class="mock-grid">
+                <div class="mock-card">
+                  <div class="mock-card-title">活跃用户</div>
+                  <div class="mock-card-val">1,024</div>
+                  <div class="mock-card-sub">↑ 12% vs 上周</div>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-card-title">营收</div>
+                  <div class="mock-card-val">¥45,280</div>
+                  <div class="mock-card-sub">↑ 8% vs 上周</div>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-card-title">待处理工单</div>
+                  <div class="mock-card-val">37</div>
+                  <div class="mock-card-sub">需立即处理</div>
+                </div>
+              </div>
+              <a class="mock-btn">查看详细报告 →</a>
+            </div>
+          </div>
+        </div>
+        <div class="compare-divider" id="compareDivider"></div>
+        <div class="compare-handle" id="compareHandle">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="install-section" id="install" aria-labelledby="install-title">
   <div class="container">
-    <h2 id="install-title">安装</h2>
-    <p class="subtitle">一条命令，30 秒搞定。</p>
+    <div class="section-label">Getting started</div>
+    <h2 class="section-title" id="install-title">安装</h2>
+    <p class="section-desc">一条命令，30 秒。装完重启你的 AI 工具就能用。</p>
     <div class="install-card">
       <h3>Git Clone（推荐，可随时 git pull 更新）</h3>
       <code>git clone https://github.com/ikevss/design-skillhub.git ~/design-skillhub<br>cd ~/design-skillhub && bash designer-setup.sh</code>
@@ -364,10 +520,12 @@
   </div>
 </section>
 
-<section class="agents-section" id="agents" aria-labelledby="agents-title">
+<!-- ═══════════ 适配 ═══════════ -->
+<section id="agents" aria-labelledby="agents-title">
   <div class="container">
-    <h2 id="agents-title">适配所有主流 AI 编码工具</h2>
-    <p class="subtitle">标准 Markdown 格式。复制到对应目录，重启即可使用。</p>
+    <div class="section-label">兼容性</div>
+    <h2 class="section-title" id="agents-title">适配这些 AI 编码工具</h2>
+    <p class="section-desc">标准 Markdown 格式。复制到对应目录，重启即可。</p>
     <div class="table-wrap">
       <table class="trigger-table">
         <thead><tr><th>工具</th><th>安装目录</th><th>安装方式</th></tr></thead>
@@ -384,26 +542,27 @@
   </div>
 </section>
 
-<section class="triggers-section" id="triggers" aria-labelledby="triggers-title">
+<!-- ═══════════ 触发词 ═══════════ -->
+<section id="triggers" aria-labelledby="triggers-title">
   <div class="container">
-    <h2 id="triggers-title">说出来就能做</h2>
-    <p class="subtitle">用中文口语描述需求。不需要记英文命令名。</p>
+    <div class="section-label">怎么说话</div>
+    <h2 class="section-title" id="triggers-title">用你自己的话说就行</h2>
+    <p class="section-desc">不用记任何命令。就像跟一个设计师同事对话。</p>
     <div class="table-wrap">
       <table class="trigger-table">
-        <thead><tr><th>你说什么</th><th>自动执行什么</th></tr></thead>
+        <thead><tr><th>你想做什么</th><th>它会怎么做</th></tr></thead>
         <tbody>
-          <tr><td>审查这个页面 / 把把关</td><td>设计审查 critique</td></tr>
-          <tr><td>配色调整一下</td><td>colorize</td></tr>
-          <tr><td>字体层级帮我看看 / 排版优化</td><td>typeset</td></tr>
-          <tr><td>布局重构 / 间距对齐调整</td><td>layout</td></tr>
-          <tr><td>打磨一下 / 精修 / 上线前润色</td><td>polish</td></tr>
-          <tr><td>帮我生成设计规范</td><td>design-tokens</td></tr>
-          <tr><td>按钮加个弹性反馈</td><td>micro-interaction</td></tr>
-          <tr><td>线条一笔一笔画出来</td><td>svg-animation</td></tr>
-          <tr><td>这份数据做个信息图</td><td>infographic</td></tr>
-          <tr><td>做个 AI 生图的 PPT</td><td>AI PPT 生成</td></tr>
-          <tr><td>帮我建暗色模式</td><td>dark-mode-design</td></tr>
-          <tr><td>帮我检查无障碍</td><td>accessibility-audit</td></tr>
+          <tr><td>"帮我看看这个页面有什么问题"</td><td>跑一遍设计审查，给你改进清单</td></tr>
+          <tr><td>"配色有点奇怪，帮我调一下"</td><td>分析当前配色 + 生成优化方案</td></tr>
+          <tr><td>"字体大小和层级帮我理一下"</td><td>重新建立排版层级 + 间距规范</td></tr>
+          <tr><td>"帮我建一套统一的颜色和字体规范"</td><td>自动生成完整的 Design Token</td></tr>
+          <tr><td>"这个组件动起来没感觉"</td><td>按你的描述写动画代码</td></tr>
+          <tr><td>"帮我做暗色模式"</td><td>生成完整的暗色主题方案</td></tr>
+          <tr><td>"这篇文章配张封面图"</td><td>生成匹配内容的配图</td></tr>
+          <tr><td>"这份数据画个图表"</td><td>自动选择合适的图表类型并生成</td></tr>
+          <tr><td>"帮我画个流程图"</td><td>文字描述 → 流程图</td></tr>
+          <tr><td>"帮我生成一份 PPT"</td><td>给出内容，输出完整 PPT</td></tr>
+          <tr><td>"检查一下无障碍有没有问题"</td><td>WCAG 审计 + 修复建议</td></tr>
         </tbody>
       </table>
     </div>
@@ -422,12 +581,36 @@
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        setTimeout(() => entry.target.classList.add('visible'), i * 120);
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
   document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+
+  /* ── 拖动对比 ── */
+  const slider = document.getElementById('compareSlider');
+  if (slider) {
+    const after = slider.querySelector('.compare-after');
+    const divider = document.getElementById('compareDivider');
+    const handle = document.getElementById('compareHandle');
+    let dragging = false;
+    function update(pos) {
+      const rect = slider.getBoundingClientRect();
+      let pct = ((pos - rect.left) / rect.width) * 100;
+      pct = Math.max(5, Math.min(95, pct));
+      after.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+      divider.style.left = pct + '%';
+      handle.style.left = pct + '%';
+    }
+    slider.addEventListener('mousedown', function(e) { dragging = true; update(e.clientX); });
+    slider.addEventListener('touchstart', function(e) { dragging = true; update(e.touches[0].clientX); }, {passive:false});
+    window.addEventListener('mousemove', function(e) { if (dragging) update(e.clientX); });
+    window.addEventListener('touchmove', function(e) { if (dragging) { e.preventDefault(); update(e.touches[0].clientX); } }, {passive:false});
+    window.addEventListener('mouseup', function() { dragging = false; });
+    window.addEventListener('touchend', function() { dragging = false; });
+    update(slider.getBoundingClientRect().left + slider.getBoundingClientRect().width * 0.5);
+  }
 })();
 </script>
 
