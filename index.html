@@ -5,65 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design SkillHub — 说中文，让 AI 做设计</title>
 <meta name="description" content="说中文，让 AI 做设计。审查页面、调配色、加动效、画图表、生成 PPT——用口语触发，零学习成本。">
-<meta name="theme-color" content="#111827">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23e6c76d'/%3E%3Cstop offset='100%25' stop-color='%23c8a951'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230d1525'/%3E%3Cpolygon points='32,8 50,24 44,48 20,48 14,24' fill='none' stroke='url(%23g)' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpolyline points='20,48 32,56 44,48' fill='none' stroke='url(%23g)' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cline x1='32' y1='8' x2='32' y2='56' stroke='url(%23g)' stroke-width='2'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='white'/%3E%3Cpolygon points='32,8 50,24 44,48 20,48 14,24' fill='none' stroke='%2316a085' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cpolyline points='20,48 32,56 44,48' fill='none' stroke='%2316a085' stroke-width='2.5' stroke-linejoin='round'/%3E%3Cline x1='32' y1='8' x2='32' y2='56' stroke='%2316a085' stroke-width='2'/%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #111827; --surface: #1a2332; --surface-2: #1f2b3d; --border: #293548;
-    --gold: #c8a951; --gold-light: #e6c76d; --text: #e8eaed; --text-dim: #9aa1af;
-    --radius: 16px; --spring: cubic-bezier(0.34,1.56,0.64,1);
+    --bg: #f5f6f8; --surface: #ffffff; --surface-hover: #fafbfc; --border: #e8eaef;
+    --accent: #16a085; --accent-light: #e8f5f1; --text: #1a1d2e; --text-dim: #6b7280;
+    --radius: 14px; --shadow-sm: 0 1px 3px rgba(0,0,0,.04); --shadow-md: 0 4px 20px rgba(0,0,0,.06);
+    --spring: cubic-bezier(0.34,1.56,0.64,1);
     --font: "SF Pro Display","PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
   }
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   body{line-height:1.6;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle,rgba(22,160,133,.12) 1px,transparent 1px);background-size:40px 40px}
+  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px 256px}
+  @media(prefers-reduced-motion:reduce){body::before,body::after{display:none}}
   .container{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
 
   /* ═══ 导航 ═══ */
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(17,24,39,.88);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);border-bottom:1px solid rgba(255,255,255,.06);padding:12px 0}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 0}
   nav .container{display:flex;align-items:center;justify-content:space-between}
-  .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-size:1.05rem;font-weight:700;letter-spacing:-.01em;transition:opacity .3s}
-  .nav-logo:hover{opacity:.8}
+  .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-size:1.05rem;font-weight:700;letter-spacing:-.01em;transition:opacity .2s}
+  .nav-logo:hover{opacity:.7}
   .nav-logo svg{width:32px;height:32px;flex-shrink:0}
   .nav-logo span{color:var(--text-dim);font-weight:400}
   nav .nav-links{display:flex;align-items:center}
-  nav a{color:var(--text-dim);text-decoration:none;font-size:.88rem;margin-left:24px;transition:color .25s var(--spring)}
-  nav a:hover{color:var(--text)}
-  nav a:focus-visible{outline:2px solid var(--gold);outline-offset:4px;border-radius:4px}
-  nav .gh-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:6px 16px;border-radius:8px;font-size:.82rem;transition:background .25s var(--spring),border-color .25s var(--spring)}
-  nav .gh-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18)}
-
-  /* ═══ 粒子背景 ═══ */
-  .particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-  .particle{position:absolute;width:1px;height:1px;background:var(--gold);border-radius:50%;opacity:0;animation:float-up linear infinite}
-  @keyframes float-up{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:.6}90%{opacity:.2}100%{transform:translateY(-10vh) scale(1);opacity:0}}
+  nav a{color:var(--text-dim);text-decoration:none;font-size:.88rem;margin-left:24px;transition:color .2s}
+  nav a:hover{color:var(--accent)}
+  nav a:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
+  nav .gh-btn{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:7px 18px;border-radius:8px;font-size:.82rem;transition:border-color .2s,box-shadow .2s}
+  nav .gh-btn:hover{border-color:var(--accent);box-shadow:0 0 0 3px rgba(22,160,133,.08)}
 
   /* ═══ Hero ═══ */
-  .hero{min-height:100dvh;display:flex;align-items:center;position:relative;overflow:hidden}
+  .hero{min-height:100dvh;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(180deg,#f0fdf8 0%,var(--bg) 100%)}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(22,160,133,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(22,160,133,.04) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 75% 50%,#000 30%,transparent 70%);mask-image:radial-gradient(ellipse 80% 70% at 75% 50%,#000 30%,transparent 70%)}
+  .hero-geo{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .hero-geo .ring{position:absolute;border-radius:50%;border:1.5px solid rgba(22,160,133,.08)}
+  .hero-geo .ring.r1{width:600px;height:600px;top:-300px;right:-200px}
+  .hero-geo .ring.r2{width:400px;height:400px;top:-150px;right:-100px;border-width:1px;border-style:dashed}
+  .hero-geo .ring.r3{width:700px;height:700px;bottom:-500px;left:-300px;border-width:1px;border-color:rgba(22,160,133,.05)}
+  .hero-geo .dot{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--accent)}
+  .hero-geo .dot.d1{top:18%;right:22%}
+  .hero-geo .dot.d2{top:60%;right:8%;opacity:.5}
+  .hero-geo .dot.d3{top:40%;left:8%;opacity:.3}
+  .hero-geo .dot.d4{bottom:25%;right:28%;width:2px;height:2px;opacity:.4}
   .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;width:100%}
   .hero-text{position:relative;z-index:2}
-  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,169,81,.10);border:1px solid rgba(200,169,81,.22);padding:6px 18px;border-radius:50px;font-size:.82rem;color:var(--gold);margin-bottom:28px;letter-spacing:.02em}
-  .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:dot-pulse 2s ease-in-out infinite}
-  @keyframes dot-pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,169,81,.4)}50%{box-shadow:0 0 0 8px rgba(200,169,81,0)}}
-  .hero h1{font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:800;letter-spacing:-.04em;line-height:1.08;margin-bottom:28px}
-  .hero h1 em{font-style:normal;color:var(--gold)}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-light);border:1px solid rgba(22,160,133,.15);padding:6px 18px;border-radius:50px;font-size:.82rem;color:var(--accent);margin-bottom:28px;font-weight:500}
+  .hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:dot-pulse 2s ease-in-out infinite}
+  @keyframes dot-pulse{0%,100%{box-shadow:0 0 0 0 rgba(22,160,133,.3)}50%{box-shadow:0 0 0 8px rgba(22,160,133,0)}}
+  .hero h1{font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:800;letter-spacing:-.04em;line-height:1.08;margin-bottom:24px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
   .hero p{font-size:1.1rem;color:var(--text-dim);max-width:480px;line-height:1.7;margin-bottom:40px}
-  .btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:#0d1525;font-weight:700;font-size:1rem;padding:15px 36px;border-radius:12px;text-decoration:none;transition:transform .3s var(--spring),box-shadow .3s var(--spring);box-shadow:0 4px 24px rgba(200,169,81,.25)}
-  .btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 40px rgba(200,169,81,.40)}
-  .btn-primary:active{transform:translateY(0) scale(.97);transition:transform .1s}
-  .btn-primary:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+  .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:600;font-size:1rem;padding:15px 36px;border-radius:12px;text-decoration:none;transition:transform .25s var(--spring),box-shadow .25s;box-shadow:0 2px 12px rgba(22,160,133,.25)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(22,160,133,.35)}
+  .btn-primary:active{transform:translateY(0) scale(.98);transition:transform .08s}
+  .btn-primary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 
-  /* ── Hero 视觉：宝石 + 轨道 ── */
+  /* ── Hero 视觉 ── */
   .hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:500px}
-  .gem-stage{position:relative;width:280px;height:280px}
-  .gem-stage{animation:gem-float 6s ease-in-out infinite}
+  .gem-stage{position:relative;width:280px;height:280px;animation:gem-float 6s ease-in-out infinite}
   @media(prefers-reduced-motion:reduce){.gem-stage{animation:none}}
   .gem-core{position:absolute;inset:40px;display:flex;align-items:center;justify-content:center}
-  .gem-core svg{width:100%;height:100%;filter:drop-shadow(0 0 40px rgba(200,169,81,.25))}
+  .gem-core svg{width:100%;height:100%}
   @keyframes gem-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-
-  /* 宝石描边入场 */
   .gem-core .g-draw{stroke-dasharray:600;stroke-dashoffset:600;animation:gem-draw 2s ease-out forwards}
   .gem-core .g-draw:nth-child(2){animation-delay:.15s}
   .gem-core .g-draw:nth-child(3){animation-delay:.3s}
@@ -72,96 +79,87 @@
   .gem-core .g-draw:nth-child(6){animation-delay:.75s}
   .gem-core .g-draw:nth-child(7){animation-delay:.9s}
   @keyframes gem-draw{to{stroke-dashoffset:0}}
-  /* 宝石面填充淡入 */
   @keyframes gem-fade-in{0%{opacity:0}100%{opacity:1}}
   .gem-core .g-face{opacity:0;animation:gem-fade-in .6s ease-out forwards}
   .gem-core .g-face:nth-child(2){animation-delay:.5s}
   .gem-core .g-face:nth-child(3){animation-delay:.7s}
   .gem-core .g-face:nth-child(4){animation-delay:.9s}
-  /* 轨道环 */
-  .orbit{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(200,169,81,.08);animation:orbit-spin 20s linear infinite}
-  .orbit:nth-child(2){inset:20px;animation-duration:14s;animation-direction:reverse;border-color:rgba(200,169,81,.05)}
-  .orbit:nth-child(3){inset:-20px;animation-duration:26s;border-color:rgba(200,169,81,.04)}
+  .orbit{position:absolute;inset:0;border-radius:50%;border:1.2px solid rgba(22,160,133,.1);animation:orbit-spin 20s linear infinite}
+  .orbit:nth-child(2){inset:20px;animation-duration:14s;animation-direction:reverse;border-color:rgba(22,160,133,.07)}
+  .orbit:nth-child(3){inset:-20px;animation-duration:26s;border-color:rgba(22,160,133,.05)}
   @keyframes orbit-spin{to{transform:rotate(360deg)}}
-  /* 轨道上的粒子 */
-  .orbit-dot{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--gold);top:-2px;left:50%;margin-left:-2px;animation:orbit-glow 3s ease-in-out infinite}
-  .orbit:nth-child(2) .orbit-dot{animation-delay:.8s;width:3px;height:3px;top:-1.5px;margin-left:-1.5px}
-  .orbit:nth-child(3) .orbit-dot{animation-delay:1.6s;width:2px;height:2px;top:-1px;margin-left:-1px}
-  @keyframes orbit-glow{0%,100%{box-shadow:0 0 2px var(--gold),0 0 6px rgba(200,169,81,.5)}50%{box-shadow:0 0 8px var(--gold),0 0 20px rgba(200,169,81,.8)}}
+  .orbit-dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--accent);top:-2.5px;left:50%;margin-left:-2.5px;animation:orbit-glow 3s ease-in-out infinite}
+  .orbit:nth-child(2) .orbit-dot{animation-delay:.8s;width:4px;height:4px;top:-2px;margin-left:-2px}
+  .orbit:nth-child(3) .orbit-dot{animation-delay:1.6s;width:3px;height:3px;top:-1.5px;margin-left:-1.5px}
+  @keyframes orbit-glow{0%,100%{box-shadow:0 0 4px var(--accent)}50%{box-shadow:0 0 16px rgba(22,160,133,.6)}}
 
-  /* ═══ 流程线 ═══ */
-  .flow-divider{text-align:center;padding:0 0 40px}
-  .flow-line{display:inline-block;position:relative}
-  .flow-line::before{content:"";display:block;width:1px;height:60px;background:linear-gradient(to bottom,transparent,rgba(200,169,81,.2),transparent);margin:0 auto}
-  .flow-node{width:8px;height:8px;border-radius:50%;background:var(--gold);margin:0 auto;animation:dot-pulse 2s ease-in-out infinite}
+  /* ═══ Stats ═══ */
+  .stats{display:flex;gap:48px;justify-content:center;flex-wrap:wrap;padding:0 0 100px}
+  .stat{text-align:center}
+  .stat-num{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;color:var(--accent)}
+  .stat-label{font-size:.9rem;color:var(--text-dim);margin-top:4px}
 
-  /* ═══ 能力流水线 (交替行) ═══ */
-  .pipeline{padding:80px 0}
+  /* ═══ 能力流水线 ═══ */
+  .pipeline{padding:100px 0}
   .pipeline-header{margin-bottom:80px}
   .pipeline-header h2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
   .pipeline-header p{color:var(--text-dim);font-size:1.05rem;max-width:480px}
-  .pipe-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:32px;opacity:0;transform:translateY(40px);transition:opacity .7s ease-out,transform .7s var(--spring)}
+  .pipe-row{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-bottom:0;padding:48px 0;border-bottom:1px solid var(--border);opacity:0;transform:translateY(32px);transition:opacity .7s ease-out,transform .7s var(--spring)}
+  .pipe-row:last-child{border-bottom:none}
   .pipe-row.visible{opacity:1;transform:translateY(0)}
   .pipe-row:nth-child(even){direction:rtl}
   .pipe-row:nth-child(even) .pipe-info{direction:ltr}
-  .pipe-visual{display:flex;align-items:center;justify-content:center;min-height:220px;position:relative;padding:24px 0}
-  .pipe-visual svg{filter:drop-shadow(0 0 24px rgba(200,169,81,.12))}
+  .pipe-visual{display:flex;align-items:center;justify-content:center;min-height:200px;position:relative}
   .pipe-info h3{font-size:1.25rem;font-weight:700;margin-bottom:10px;letter-spacing:-.01em}
   .pipe-info p{color:var(--text-dim);font-size:.95rem;line-height:1.65;margin-bottom:14px}
   .pipe-info .tags{display:flex;gap:6px;flex-wrap:wrap}
-  .pipe-info .tag{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:3px 10px;border-radius:6px;font-size:.76rem;color:var(--text-dim)}
+  .pipe-info .tag{background:var(--bg);border:1px solid var(--border);padding:3px 10px;border-radius:6px;font-size:.76rem;color:var(--text-dim)}
 
-  /* 行间连接线 */
-  .pipe-connector{position:relative;height:40px;margin:0 auto;opacity:0;transition:opacity 1s ease-out .3s}
-  .pipe-connector.visible{opacity:1}
-  .pipe-connector::before{content:"";position:absolute;left:50%;top:0;width:1px;height:100%;background:linear-gradient(to bottom,rgba(200,169,81,.15),transparent)}
-
-  /* ═══ 安装 + 表格 ═══ */
-  .install-section,.agents-section,.triggers-section{padding:100px 0}
-  .install-section h2,.agents-section h2,.triggers-section h2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
-  .install-section .subtitle,.agents-section .subtitle,.triggers-section .subtitle{color:var(--text-dim);font-size:1.05rem;max-width:480px;margin-bottom:48px}
-
-  .install-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:40px;max-width:760px;transition:border-color .4s,box-shadow .4s}
-  .install-card:hover{border-color:rgba(200,169,81,.18);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+  /* ═══ 安装 ═══ */
+  .install-section{padding:100px 0;background:var(--surface)}
+  .install-section h2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+  .install-section .subtitle{color:var(--text-dim);font-size:1.05rem;max-width:480px;margin-bottom:48px}
+  .install-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:40px;max-width:760px;transition:border-color .3s,box-shadow .3s}
+  .install-card:hover{border-color:rgba(22,160,133,.2);box-shadow:var(--shadow-md)}
   .install-card h3{font-size:1rem;font-weight:700;margin-bottom:6px}
   .install-card h3:not(:first-child){margin-top:28px}
-  .install-card code{display:block;background:rgba(0,0,0,.4);padding:18px 24px;border-radius:10px;font-family:"SF Mono","Fira Code","Cascadia Code",monospace;font-size:.9rem;color:var(--text-dim);margin:12px 0;overflow-x:auto;position:relative}
+  .install-card code{display:block;background:var(--surface);padding:18px 24px;border-radius:10px;font-family:"SF Mono","Fira Code","Cascadia Code",monospace;font-size:.9rem;color:var(--text);margin:12px 0;overflow-x:auto;border:1px solid var(--border)}
   .install-notes{margin-top:24px;color:var(--text-dim);font-size:.88rem;display:flex;gap:24px;flex-wrap:wrap}
 
   /* ═══ 表格 ═══ */
+  .agents-section,.triggers-section{padding:100px 0}
+  .agents-section h2,.triggers-section h2{font-size:2rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px}
+  .agents-section .subtitle,.triggers-section .subtitle{color:var(--text-dim);font-size:1.05rem;max-width:480px;margin-bottom:48px}
   .table-wrap{overflow-x:auto;scrollbar-gutter:stable}
   .trigger-table{width:100%;border-collapse:collapse;white-space:nowrap}
-  .trigger-table th{text-align:left;padding:14px 16px;font-size:.85rem;color:var(--gold);border-bottom:1px solid var(--border);font-weight:600}
-  .trigger-table td{padding:12px 16px;font-size:.92rem;border-bottom:1px solid rgba(255,255,255,.03)}
-  .trigger-table td:first-child{color:var(--text);white-space:normal;min-width:180px}
+  .trigger-table th{text-align:left;padding:14px 16px;font-size:.85rem;color:var(--accent);border-bottom:1px solid var(--border);font-weight:600;background:var(--surface)}
+  .trigger-table td{padding:12px 16px;font-size:.92rem;border-bottom:1px solid var(--border)}
+  .trigger-table td:first-child{color:var(--text);white-space:normal;min-width:180px;font-weight:500}
   .trigger-table td:last-child{color:var(--text-dim);font-size:.85rem}
-  .trigger-table tbody tr{transition:background .2s}
-  .trigger-table tbody tr:hover{background:rgba(200,169,81,.06)}
+  .trigger-table tbody tr{transition:background .15s}
+  .trigger-table tbody tr:hover{background:var(--accent-light)}
 
   /* ═══ Footer ═══ */
-  footer{border-top:1px solid rgba(255,255,255,.04);padding:48px 0;text-align:center;color:var(--text-dim);font-size:.85rem}
-  footer a{color:var(--gold);text-decoration:none;transition:color .2s}
-  footer a:hover{color:var(--gold-light)}
+  footer{border-top:1px solid var(--border);padding:48px 0;text-align:center;color:var(--text-dim);font-size:.85rem;background:var(--surface)}
+  footer a{color:var(--accent);text-decoration:none;transition:color .2s}
+  footer a:hover{opacity:.7}
 
-  /* ═══ 滚动入场线描动画 ═══ */
-  .draw-in line,.draw-in path,.draw-in circle,.draw-in rect,.draw-in polygon,.draw-in polyline{stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset 1.2s ease-out}
-  .pipe-row.visible .draw-in line,
-  .pipe-row.visible .draw-in path,
-  .pipe-row.visible .draw-in circle,
-  .pipe-row.visible .draw-in rect,
-  .pipe-row.visible .draw-in polygon,
-  .pipe-row.visible .draw-in polyline{stroke-dashoffset:0}
+  /* ═══ 滚动入场描边动画 ═══ */
+  @keyframes draw-stroke{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+  .pipe-row .draw-in *{stroke-dasharray:1000;stroke-dashoffset:1000}
+  .pipe-row.visible .draw-in *{animation:draw-stroke 1.2s ease-out forwards}
 
   /* ═══ 响应式 ═══ */
   @media(max-width:768px){
-    .hero-grid{grid-template-columns:1fr;gap:40px}
-    .hero-visual{height:300px;order:-1}
+    .hero-grid{grid-template-columns:1fr;gap:28px}
+    .hero-visual{height:280px;order:-1}
     .gem-stage{width:200px;height:200px}
-    .hero{padding:140px 0 40px;min-height:auto}
-    .pipe-row{grid-template-columns:1fr;gap:24px;direction:ltr!important}
+    .hero{min-height:auto;padding:140px 0 40px}
+    .stats{gap:24px;padding:0 0 60px}
+    .stat-num{font-size:1.8rem}
+    .pipe-row{grid-template-columns:1fr;gap:20px;direction:ltr!important;padding:36px 0}
     .pipe-row:nth-child(even) .pipe-info{direction:ltr}
-    .pipe-visual{min-height:100px;justify-content:flex-start}
-    .pipe-connector{display:none}
+    .pipe-visual{min-height:auto;justify-content:flex-start}
     .pipeline-header{margin-bottom:48px}
     .install-card code{font-size:.75rem;padding:12px 16px}
     .install-notes{flex-direction:column;gap:2px}
@@ -175,20 +173,16 @@
 </head>
 <body>
 
-<!-- ═══════════ 粒子背景 ═══════════ -->
-<div class="particles" aria-hidden="true"></div>
-
-<!-- ═══════════ 导航 ═══════════ -->
 <nav aria-label="主导航">
   <div class="container">
     <a href="#" class="nav-logo" aria-label="Design SkillHub 首页">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-        <polygon points="16,2 28,14 24,30 8,30 4,14" fill="none" stroke="#e6c76d" stroke-width="1.6" stroke-linejoin="round"/>
-        <polygon points="16,2 28,14 16,22" fill="rgba(200,169,81,.15)" stroke="#c8a951" stroke-width="1" stroke-linejoin="round"/>
-        <polygon points="16,22 28,14 24,30" fill="rgba(200,169,81,.08)" stroke="#c8a951" stroke-width="1" stroke-linejoin="round"/>
-        <polygon points="16,22 8,30 4,14" fill="rgba(200,169,81,.12)" stroke="#c8a951" stroke-width="1" stroke-linejoin="round"/>
-        <line x1="16" y1="2" x2="16" y2="30" stroke="#c8a951" stroke-width=".8" opacity=".5"/>
-        <line x1="4" y1="14" x2="28" y2="14" stroke="#c8a951" stroke-width=".8" opacity=".5"/>
+        <polygon points="16,2 28,14 24,30 8,30 4,14" fill="none" stroke="#16a085" stroke-width="1.6" stroke-linejoin="round"/>
+        <polygon points="16,2 28,14 16,22" fill="rgba(22,160,133,.12)" stroke="#16a085" stroke-width="1" stroke-linejoin="round"/>
+        <polygon points="16,22 28,14 24,30" fill="rgba(22,160,133,.06)" stroke="#16a085" stroke-width="1" stroke-linejoin="round"/>
+        <polygon points="16,22 8,30 4,14" fill="rgba(22,160,133,.09)" stroke="#16a085" stroke-width="1" stroke-linejoin="round"/>
+        <line x1="16" y1="2" x2="16" y2="30" stroke="#16a085" stroke-width=".8" opacity=".5"/>
+        <line x1="4" y1="14" x2="28" y2="14" stroke="#16a085" stroke-width=".8" opacity=".5"/>
       </svg>
       <span>Design</span> SkillHub
     </a>
@@ -206,16 +200,19 @@
 </nav>
 
 <main>
-<!-- ═══════════ Hero ═══════════ -->
 <section class="hero">
+  <div class="hero-geo" aria-hidden="true">
+    <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+    <div class="dot d1"></div><div class="dot d2"></div><div class="dot d3"></div><div class="dot d4"></div>
+  </div>
   <div class="container hero-grid">
     <div class="hero-text">
       <div class="hero-badge"><span class="dot"></span>130+ skills · 全中文 · 零学习成本</div>
       <h1>说中文<br>让 AI <em>做设计</em></h1>
-      <p>不用学设计软件，不用记配色规则。你只管用自己的话描述想要什么——审查页面、调颜色、做动画、画图表、生成 PPT，剩下的交给它。</p>
+      <p>不用学设计软件，不用记配色规则。你只管用自己的话描述想要什么，剩下的交给它。</p>
       <a href="#install" class="btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        30 秒安装
+        免费安装
       </a>
     </div>
     <div class="hero-visual" aria-hidden="true">
@@ -225,23 +222,15 @@
         <div class="orbit"><span class="orbit-dot"></span></div>
         <div class="gem-core">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
-            <defs>
-              <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e6c76d"/><stop offset="100%" stop-color="#c8a951"/></linearGradient>
-            </defs>
-            <!-- 外轮廓（描边入场） -->
-            <polygon class="g-draw" points="100,8 172,60 152,148 48,148 28,60" fill="none" stroke="url(#g1)" stroke-width="2.5" stroke-linejoin="round"/>
-            <!-- 顶面 -->
-            <polygon class="g-face" points="100,8 172,60 100,80" fill="rgba(200,169,81,.12)" stroke="#c8a951" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- 右面 -->
-            <polygon class="g-face" points="100,80 172,60 152,148" fill="rgba(200,169,81,.06)" stroke="#c8a951" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- 左面 -->
-            <polygon class="g-face" points="100,80 48,148 28,60" fill="rgba(200,169,81,.09)" stroke="#c8a951" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- 底面 -->
-            <polyline class="g-draw" points="48,148 100,168 152,148" fill="none" stroke="#c8a951" stroke-width="1.5" stroke-linejoin="round"/>
-            <!-- 中轴线 -->
-            <line class="g-draw" x1="100" y1="8" x2="100" y2="168" stroke="#c8a951" stroke-width="1" opacity=".4"/>
-            <line class="g-draw" x1="28" y1="60" x2="100" y2="80" stroke="#c8a951" stroke-width=".8" opacity=".3"/>
-            <line class="g-draw" x1="172" y1="60" x2="100" y2="80" stroke="#c8a951" stroke-width=".8" opacity=".3"/>
+            <defs><linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1abc9c"/><stop offset="100%" stop-color="#16a085"/></linearGradient></defs>
+            <polygon class="g-draw" points="100,8 172,60 152,148 48,148 28,60" fill="none" stroke="url(#gg)" stroke-width="2.5" stroke-linejoin="round"/>
+            <polygon class="g-face" points="100,8 172,60 100,80" fill="rgba(22,160,133,.08)" stroke="#16a085" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon class="g-face" points="100,80 172,60 152,148" fill="rgba(22,160,133,.04)" stroke="#16a085" stroke-width="1.5" stroke-linejoin="round"/>
+            <polygon class="g-face" points="100,80 48,148 28,60" fill="rgba(22,160,133,.06)" stroke="#16a085" stroke-width="1.5" stroke-linejoin="round"/>
+            <polyline class="g-draw" points="48,148 100,168 152,148" fill="none" stroke="#16a085" stroke-width="1.5" stroke-linejoin="round"/>
+            <line class="g-draw" x1="100" y1="8" x2="100" y2="168" stroke="#16a085" stroke-width="1" opacity=".3"/>
+            <line class="g-draw" x1="28" y1="60" x2="100" y2="80" stroke="#16a085" stroke-width=".8" opacity=".2"/>
+            <line class="g-draw" x1="172" y1="60" x2="100" y2="80" stroke="#16a085" stroke-width=".8" opacity=".2"/>
           </svg>
         </div>
       </div>
@@ -249,31 +238,25 @@
   </div>
 </section>
 
-<!-- ═══════════ 能力流水线 ═══════════ -->
 <section class="pipeline" id="pipeline" aria-labelledby="pipe-title">
   <div class="container">
     <div class="pipeline-header">
       <h2 id="pipe-title">从决策到交付，一条流水线</h2>
-      <p>8 层能力栈覆盖设计全流程。每一层都基于下层产出，形成完整的工具链。</p>
+      <p>覆盖设计全流程。每一层都基于下层产出，形成完整的工具链。</p>
     </div>
 
-    <!-- L1: 设计决策 -->
     <div class="pipe-row" data-reveal>
       <div class="pipe-visual">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
           <g class="draw-in">
-            <circle cx="100" cy="80" r="50" stroke="#c8a951" stroke-width="1.5" opacity=".25"/>
-            <circle cx="100" cy="80" r="32" stroke="#c8a951" stroke-width="1.5" opacity=".4"/>
-            <circle cx="100" cy="80" r="14" stroke="#e6c76d" stroke-width="2.5"/>
-            <circle cx="100" cy="80" r="5" fill="#c8a951"/>
-            <line x1="100" y1="18" x2="100" y2="30" stroke="#c8a951" stroke-width="2"/>
-            <line x1="100" y1="130" x2="100" y2="142" stroke="#c8a951" stroke-width="2"/>
-            <line x1="18" y1="80" x2="30" y2="80" stroke="#c8a951" stroke-width="2"/>
-            <line x1="170" y1="80" x2="182" y2="80" stroke="#c8a951" stroke-width="2"/>
-            <line x1="42" y1="22" x2="50" y2="30" stroke="#c8a951" stroke-width="1.5" opacity=".5"/>
-            <line x1="150" y1="30" x2="158" y2="22" stroke="#c8a951" stroke-width="1.5" opacity=".5"/>
-            <line x1="42" y1="138" x2="50" y2="130" stroke="#c8a951" stroke-width="1.5" opacity=".5"/>
-            <line x1="150" y1="130" x2="158" y2="138" stroke="#c8a951" stroke-width="1.5" opacity=".5"/>
+            <circle cx="100" cy="80" r="50" stroke="#16a085" stroke-width="1.5" opacity=".18"/>
+            <circle cx="100" cy="80" r="32" stroke="#16a085" stroke-width="1.5" opacity=".3"/>
+            <circle cx="100" cy="80" r="14" stroke="#16a085" stroke-width="2.5"/>
+            <circle cx="100" cy="80" r="5" fill="#16a085"/>
+            <line x1="100" y1="18" x2="100" y2="30" stroke="#16a085" stroke-width="2" opacity=".5"/>
+            <line x1="100" y1="130" x2="100" y2="142" stroke="#16a085" stroke-width="2" opacity=".5"/>
+            <line x1="18" y1="80" x2="30" y2="80" stroke="#16a085" stroke-width="2" opacity=".5"/>
+            <line x1="170" y1="80" x2="182" y2="80" stroke="#16a085" stroke-width="2" opacity=".5"/>
           </g>
         </svg>
       </div>
@@ -284,19 +267,16 @@
       </div>
     </div>
 
-    <!-- L2: 设计系统 -->
     <div class="pipe-row" data-reveal>
       <div class="pipe-visual">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
           <g class="draw-in">
-            <rect x="24" y="20" width="68" height="52" rx="8" stroke="#c8a951" stroke-width="2"/>
-            <rect x="108" y="20" width="68" height="52" rx="8" stroke="#c8a951" stroke-width="2" opacity=".45"/>
-            <rect x="24" y="88" width="68" height="52" rx="8" stroke="#c8a951" stroke-width="2" opacity=".3"/>
-            <rect x="108" y="88" width="68" height="52" rx="8" stroke="#c8a951" stroke-width="2" opacity=".18"/>
-            <circle cx="58" cy="46" r="10" stroke="#e6c76d" stroke-width="2"/>
-            <rect x="72" y="38" width="24" height="4" rx="2" fill="#c8a951" opacity=".3"/>
-            <circle cx="142" cy="46" r="10" stroke="#c8a951" stroke-width="2" opacity=".5"/>
-            <rect x="124" y="98" width="28" height="4" rx="2" fill="#c8a951" opacity=".2"/>
+            <rect x="24" y="20" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2"/>
+            <rect x="108" y="20" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".35"/>
+            <rect x="24" y="88" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".22"/>
+            <rect x="108" y="88" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".12"/>
+            <circle cx="58" cy="46" r="10" stroke="#1abc9c" stroke-width="2"/>
+            <rect x="72" y="38" width="24" height="4" rx="2" fill="#16a085" opacity=".2"/>
           </g>
         </svg>
       </div>
@@ -307,38 +287,32 @@
       </div>
     </div>
 
-    <!-- L3: 动效实现 -->
     <div class="pipe-row" data-reveal>
       <div class="pipe-visual">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
           <g class="draw-in">
-            <polygon points="30,30 140,80 30,130" fill="none" stroke="#e6c76d" stroke-width="2.2" stroke-linejoin="round"/>
-            <line x1="30" y1="80" x2="100" y2="80" stroke="#c8a951" stroke-width="1.8" opacity=".4"/>
-            <circle cx="30" cy="30" r="5" fill="#c8a951" opacity=".6"/>
-            <circle cx="30" cy="130" r="5" fill="#c8a951" opacity=".6"/>
-            <circle cx="140" cy="80" r="5" fill="#c8a951"/>
-            <path d="M 120,30 Q 90,20 70,22 M 50,26 Q 45,30 46,36" fill="none" stroke="#c8a951" stroke-width="1.2" opacity=".4"/>
+            <polygon points="30,30 140,80 30,130" fill="none" stroke="#16a085" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="140" cy="80" r="5" fill="#16a085"/>
+            <circle cx="30" cy="30" r="4" fill="#16a085" opacity=".4"/>
+            <circle cx="30" cy="130" r="4" fill="#16a085" opacity=".4"/>
           </g>
         </svg>
       </div>
       <div class="pipe-info">
         <h3>动效实现</h3>
-        <p>让页面"活"起来——按钮按下有弹性、卡片滑入自然流畅、加载时有呼吸感。不需要写复杂动画代码，告诉它想要什么感觉就行。</p>
-        <div class="tags"><span class="tag">按钮加弹性反馈</span><span class="tag">卡片滚入效果</span><span class="tag">毛玻璃面板</span><span class="tag">加载动画</span></div>
+        <p>让页面"活"起来——按钮按下有弹性、卡片滑入自然流畅、加载时有呼吸感。告诉它想要什么感觉，不用写一行复杂代码。</p>
+        <div class="tags"><span class="tag">按钮加弹性反馈</span><span class="tag">卡片滚入效果</span><span class="tag">毛玻璃面板</span></div>
       </div>
     </div>
 
-    <!-- L4: 视觉创建 -->
     <div class="pipe-row" data-reveal>
       <div class="pipe-visual">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
           <g class="draw-in">
-            <rect x="16" y="20" width="168" height="120" rx="12" stroke="#c8a951" stroke-width="2"/>
-            <circle cx="56" cy="68" r="24" stroke="#e6c76d" stroke-width="2.5"/>
-            <circle cx="56" cy="68" r="8" fill="#c8a951" opacity=".4"/>
-            <path d="m 136,76 -30,-26 0,18 -10,-10" stroke="#c8a951" stroke-width="2" stroke-linejoin="round" fill="none"/>
-            <rect x="44" y="112" width="60" height="4" rx="2" fill="#c8a951" opacity=".3"/>
-            <rect x="112" y="112" width="44" height="4" rx="2" fill="#c8a951" opacity=".15"/>
+            <rect x="16" y="20" width="168" height="120" rx="12" stroke="#16a085" stroke-width="2"/>
+            <circle cx="56" cy="68" r="24" stroke="#1abc9c" stroke-width="2.2"/>
+            <circle cx="56" cy="68" r="7" fill="#16a085" opacity=".3"/>
+            <path d="m 136,76 -30,-26 0,18 -10,-10" stroke="#16a085" stroke-width="2" stroke-linejoin="round" fill="none"/>
           </g>
         </svg>
       </div>
@@ -349,17 +323,16 @@
       </div>
     </div>
 
-    <!-- L5-L8 精简为视觉节奏 -->
     <div class="pipe-row" data-reveal>
       <div class="pipe-visual">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
           <g class="draw-in">
-            <rect x="20" y="24" width="160" height="112" rx="10" stroke="#c8a951" stroke-width="2"/>
-            <line x1="20" y1="48" x2="180" y2="48" stroke="#c8a951" stroke-width="1.2" opacity=".35"/>
-            <rect x="42" y="64" width="64" height="20" rx="5" stroke="#e6c76d" stroke-width="2"/>
-            <rect x="118" y="64" width="42" height="20" rx="5" stroke="#c8a951" stroke-width="1.5" opacity=".5"/>
-            <rect x="42" y="96" width="42" height="20" rx="5" stroke="#c8a951" stroke-width="1.5" opacity=".35"/>
-            <rect x="96" y="96" width="64" height="20" rx="5" stroke="#c8a951" stroke-width="1.5" opacity=".25"/>
+            <rect x="20" y="24" width="160" height="112" rx="10" stroke="#16a085" stroke-width="2"/>
+            <line x1="20" y1="48" x2="180" y2="48" stroke="#16a085" stroke-width="1.2" opacity=".25"/>
+            <rect x="42" y="64" width="64" height="20" rx="5" stroke="#1abc9c" stroke-width="2"/>
+            <rect x="118" y="64" width="42" height="20" rx="5" stroke="#16a085" stroke-width="1.5" opacity=".4"/>
+            <rect x="42" y="96" width="42" height="20" rx="5" stroke="#16a085" stroke-width="1.5" opacity=".25"/>
+            <rect x="96" y="96" width="64" height="20" rx="5" stroke="#16a085" stroke-width="1.5" opacity=".15"/>
           </g>
         </svg>
       </div>
@@ -373,9 +346,6 @@
   </div>
 </section>
 
-<div class="container"><div class="flow-divider"><div class="flow-line"><div class="flow-node"></div></div></div></div>
-
-<!-- ═══════════ 安装 ═══════════ -->
 <section class="install-section" id="install" aria-labelledby="install-title">
   <div class="container">
     <h2 id="install-title">安装</h2>
@@ -386,7 +356,7 @@
       <h3>离线包</h3>
       <code>tar xzf design-skillhub-*.tar.gz<br>cd design-skillhub-* && bash designer-setup.sh</code>
       <div class="install-notes">
-        <span>安装后重启 AI Agent</span>
+        <span>安装后重启 AI 工具</span>
         <span>无需 API Key</span>
         <span>纯本地，不修改系统</span>
       </div>
@@ -394,32 +364,26 @@
   </div>
 </section>
 
-<!-- ═══════════ 适配 ═══════════ -->
 <section class="agents-section" id="agents" aria-labelledby="agents-title">
   <div class="container">
     <h2 id="agents-title">适配所有主流 AI 编码工具</h2>
     <p class="subtitle">标准 Markdown 格式。复制到对应目录，重启即可使用。</p>
     <div class="table-wrap">
       <table class="trigger-table">
-        <thead><tr><th>Agent</th><th>Skill 目录</th><th>安装方式</th></tr></thead>
+        <thead><tr><th>工具</th><th>安装目录</th><th>安装方式</th></tr></thead>
         <tbody>
           <tr><td>Claude Code</td><td><code>~/.claude/skills/</code></td><td>bash designer-setup.sh</td></tr>
           <tr><td>Codex</td><td><code>~/.codex/skills/</code></td><td>cp -r skills/* ~/.codex/skills/</td></tr>
           <tr><td>TRAE Work</td><td><code>~/.trae/skills/</code></td><td>cp -r skills/* ~/.trae/skills/</td></tr>
-          <tr><td>OpenCode</td><td><code>~/.config/opencode/skills/</code></td><td>cp -r skills/* ~/.config/opencode/skills/</td></tr>
           <tr><td>Cursor</td><td><code>~/.cursor/skills/</code></td><td>cp -r skills/* ~/.cursor/skills/</td></tr>
           <tr><td>Gemini CLI</td><td><code>~/.gemini/antigravity/skills/</code></td><td>cp -r skills/* ~/.gemini/antigravity/skills/</td></tr>
-          <tr><td>WorkBuddy</td><td><code>~/.workbuddy/skills/</code></td><td>cp -r skills/* ~/.workbuddy/skills/</td></tr>
-          <tr><td>QwenWork / Qoder</td><td><code>~/.qoder/skills/</code></td><td>cp -r skills/* ~/.qoder/skills/</td></tr>
           <tr><td>Windsurf</td><td><code>~/.codeium/windsurf/skills/</code></td><td>cp -r skills/* ~/.codeium/windsurf/skills/</td></tr>
-          <tr><td>Kiro CLI</td><td><code>~/.kiro/skills/</code></td><td>cp -r skills/* ~/.kiro/skills/</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ 触发词 ═══════════ -->
 <section class="triggers-section" id="triggers" aria-labelledby="triggers-title">
   <div class="container">
     <h2 id="triggers-title">说出来就能做</h2>
@@ -428,18 +392,18 @@
       <table class="trigger-table">
         <thead><tr><th>你说什么</th><th>自动执行什么</th></tr></thead>
         <tbody>
-          <tr><td>审查这个页面 / 把把关</td><td>/idesign audit 或 critique</td></tr>
-          <tr><td>配色调整一下 / 品牌色应用</td><td>/idesign colorize</td></tr>
-          <tr><td>字体层级帮我看看 / 排版优化</td><td>/idesign typeset</td></tr>
-          <tr><td>布局重构 / 间距对齐调整</td><td>/idesign layout</td></tr>
-          <tr><td>打磨一下 / 精修 / 上线前润色</td><td>/idesign polish</td></tr>
-          <tr><td>帮我生成设计 Token</td><td>design-tokens</td></tr>
-          <tr><td>滚到那个位置把元素钉住</td><td>gsap-web</td></tr>
-          <tr><td>按钮加个 hover 触感效果</td><td>micro-interaction</td></tr>
+          <tr><td>审查这个页面 / 把把关</td><td>设计审查 critique</td></tr>
+          <tr><td>配色调整一下</td><td>colorize</td></tr>
+          <tr><td>字体层级帮我看看 / 排版优化</td><td>typeset</td></tr>
+          <tr><td>布局重构 / 间距对齐调整</td><td>layout</td></tr>
+          <tr><td>打磨一下 / 精修 / 上线前润色</td><td>polish</td></tr>
+          <tr><td>帮我生成设计规范</td><td>design-tokens</td></tr>
+          <tr><td>按钮加个弹性反馈</td><td>micro-interaction</td></tr>
           <tr><td>线条一笔一笔画出来</td><td>svg-animation</td></tr>
-          <tr><td>这份数据做个信息图</td><td>baoyu-infographic</td></tr>
-          <tr><td>做个 AI 生图的 PPT</td><td>GordenSuperPPTSkill</td></tr>
-          <tr><td>帮我建暗色模式 / 夜间主题</td><td>dark-mode-design</td></tr>
+          <tr><td>这份数据做个信息图</td><td>infographic</td></tr>
+          <tr><td>做个 AI 生图的 PPT</td><td>AI PPT 生成</td></tr>
+          <tr><td>帮我建暗色模式</td><td>dark-mode-design</td></tr>
+          <tr><td>帮我检查无障碍</td><td>accessibility-audit</td></tr>
         </tbody>
       </table>
     </div>
@@ -453,23 +417,8 @@
   </div>
 </footer>
 
-<!-- ═══════════ 滚动入场 + 粒子 ═══════════ -->
 <script>
 (function(){
-  /* ── 粒子系统 ── */
-  const pc = document.querySelector('.particles');
-  if (pc && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    for (let i = 0; i < 30; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.animationDuration = (12 + Math.random() * 20) + 's';
-      p.style.animationDelay = Math.random() * 15 + 's';
-      pc.appendChild(p);
-    }
-  }
-
-  /* ── 交错入场 ── */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
@@ -477,10 +426,8 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
-
 })();
 </script>
 
