@@ -1,8 +1,5 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/01-hero-sm.jpg">
-    <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/01-hero.jpg" width="800" alt="Design SkillHub - 几何宝石插图">
-  </picture>
+  <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/01-hero.jpg" width="800" alt="Design SkillHub - 几何宝石插图">
 </p>
 
 # Design SkillHub
