@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/01-hero-sm.jpg">
-    <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/01-hero-sm.jpg" width="800" alt="Design SkillHub - 几何宝石插图">
+    <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/01-hero.jpg" width="800" alt="Design SkillHub - 几何宝石插图">
   </picture>
 </p>
 
@@ -18,7 +18,7 @@
 ## 这东西能做什么
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/02-before-after-sm.jpg" width="800" alt="改之前 vs 改之后">
+  <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/02-before-after.jpg" width="800" alt="改之前 vs 改之后">
 </p>
 
 你只要用**自己的话**描述想要什么，剩下的所有设计工作自动完成：
@@ -37,7 +37,7 @@
 | "这个组件没有设计感" | 统一品牌色、建立层级、等宽数字、克制排版 |
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/03-animation-sm.jpg" width="800" alt="动效设计">
+  <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/03-animation.jpg" width="800" alt="动效设计">
 </p>
 
 ---
@@ -75,7 +75,7 @@ cd ~/design-skillhub && bash designer-setup.sh
 ## 能力栈（8 层 · 130+ skills）
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/04-system-sm.jpg" width="800" alt="设计系统">
+  <img src="https://raw.githubusercontent.com/ikevss/design-skillhub/main/assets/04-system.jpg" width="800" alt="设计系统">
 </p>
 
 | 层级 | 做什么 | 包含 |
