@@ -164,7 +164,7 @@
   .mock-page .mock-card .mock-card-sub{font-size:.72rem}
   .mock-page .mock-btn{display:inline-block;padding:10px 22px;border-radius:8px;font-size:.82rem;font-weight:600;margin-top:20px}
 
-  /* ── Before: AI味极重 荧光紫+emoji+单侧边框 ── */
+  /* ── 左：AI味极重 荧光紫+emoji+单侧边框 ── */
   .mock-after{background:#0b0b1f;font-family:Inter,Arial,sans-serif}
   .mock-after .mock-nav{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(99,102,241,.1));padding:14px 18px;border-radius:12px;border:1px solid rgba(139,92,246,.25);border-left:4px solid #a855f7;box-shadow:0 0 32px rgba(139,92,246,.2)}
   .mock-after .mock-logo{background:linear-gradient(135deg,#c084fc,#a78bfa,#818cf8,#6366f1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900;font-size:1.1rem}
@@ -183,7 +183,7 @@
   .mock-after .mock-btn{background:linear-gradient(135deg,#9333ea,#a855f7,#6366f1);color:#fff;box-shadow:0 0 40px rgba(139,92,246,.6),0 0 80px rgba(139,92,246,.2);border-radius:14px;font-weight:800;padding:14px 30px;border-left:3px solid rgba(255,255,255,.2);position:relative}
   .mock-after .mock-btn:after{content:'🔥'}
 
-  /* ── After: 干净克制专业 ── */
+  /* ── 右：干净克制专业 ── */
   .mock-before{background:#fafbfc;font-family:"SF Pro Display","PingFang SC",-apple-system,sans-serif}
   .mock-before .mock-nav{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:#fff;border-bottom:1px solid #e8eaef;margin-bottom:28px;border-radius:12px 12px 0 0}
   .mock-before .mock-nav .mock-left{display:flex;align-items:center;gap:12px}
@@ -312,7 +312,7 @@
       </div>
       <div class="compare-track">
         <div class="compare-before">
-          <div class="mock-page mock-after">
+          <div class="mock-page mock-before">
             <div class="mock-nav"><span class="mock-logo">✦ Dashboard</span><div class="mock-menu"><span></span><span></span><span></span></div></div>
             <div style="padding:0 4px">
               <div class="mock-title">项目总览</div>
@@ -339,7 +339,7 @@
           </div>
         </div>
         <div class="compare-after">
-          <div class="mock-page mock-before">
+          <div class="mock-page mock-after">
             <div class="mock-nav">
               <div class="mock-left"><div class="mock-avatar">D</div><span class="mock-brand">Dashboard</span></div>
               <div class="mock-menu"><span>总览</span><span>报表</span><span>设置</span></div>
@@ -385,135 +385,96 @@
     <h2 class="section-title" id="scenarios-title">不用学设计，说出来就行</h2>
     <p class="section-desc">每个场景都是真实对话。你说左边的日常问题，它给你右边的结果。</p>
 
-    <!-- 场景 1: 审查页面 -->
-    <div class="scenario-row" data-reveal>
-      <div class="scenario-col">
-        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
-        <div class="col-body">
-          <div class="scenario-label">"帮我看看这个页面有什么问题"</div>
-          <div class="hint">刚做完一个落地页，总觉得哪里不太对劲，但具体说不上来。发给同事看也只会说"还行吧"。</div>
-          <div class="mini-tags"><span class="mini-tag bad">不确定哪里有问题</span><span class="mini-tag bad">缺乏设计反馈</span></div>
-        </div>
+    <div class="pipe-row" data-reveal>
+      <div class="pipe-visual">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
+          <g class="draw-in">
+            <circle cx="100" cy="80" r="50" stroke="#16a085" stroke-width="1.5" opacity=".18"/>
+            <circle cx="100" cy="80" r="32" stroke="#16a085" stroke-width="1.5" opacity=".3"/>
+            <circle cx="100" cy="80" r="14" stroke="#16a085" stroke-width="2.5"/>
+            <circle cx="100" cy="80" r="5" fill="#16a085"/>
+            <line x1="100" y1="18" x2="100" y2="30" stroke="#16a085" stroke-width="2" opacity=".5"/>
+            <line x1="100" y1="130" x2="100" y2="142" stroke="#16a085" stroke-width="2" opacity=".5"/>
+          </g>
+        </svg>
       </div>
-      <div class="arrow-col">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </div>
-      <div class="scenario-col">
-        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
-        <div class="col-body">
-          <div class="result">10 项启发式评估 + 认知负荷分析 + 多角色走查。告诉你配色对比度不够、3 个按钮离太近误触风险大、正文行距太窄影响阅读。</div>
-          <div class="mini-tags"><span class="mini-tag good">配色方案建议</span><span class="mini-tag good">层级优化</span><span class="mini-tag good">行动清单</span></div>
-        </div>
+      <div class="pipe-info">
+        <h3>设计审查</h3>
+        <p>把页面截图丢进去，像设计总监一样告诉你哪里不对——配色太花、留白不够、层级混乱。</p>
+        <div class="tags"><span class="tag">帮我看看这页面</span><span class="tag">配色怎么改</span></div>
       </div>
     </div>
 
-    <!-- 场景 2: 统一风格 -->
-    <div class="scenario-row" data-reveal>
-      <div class="scenario-col">
-        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
-        <div class="col-body">
-          <div class="scenario-label">"新做的几个页面跟之前的长得不像一家人"</div>
-          <div class="hint">项目越做越大，首页是蓝色调、设置页是灰色调、弹窗的按钮圆角有的 8px 有的 14px。每次加新页面都要翻旧页面抄样式。</div>
-          <div class="mini-tags"><span class="mini-tag bad">风格不一致</span><span class="mini-tag bad">颜色/间距混乱</span></div>
-        </div>
+    <div class="pipe-row" data-reveal>
+      <div class="pipe-visual">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
+          <g class="draw-in">
+            <rect x="24" y="20" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2"/>
+            <rect x="108" y="20" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".35"/>
+            <rect x="24" y="88" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".22"/>
+            <rect x="108" y="88" width="68" height="52" rx="8" stroke="#16a085" stroke-width="2" opacity=".12"/>
+            <circle cx="58" cy="46" r="10" stroke="#1abc9c" stroke-width="2"/>
+          </g>
+        </svg>
       </div>
-      <div class="arrow-col">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </div>
-      <div class="scenario-col">
-        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
-        <div class="col-body">
-          <div class="result">扫描你现有的全部页面，自动提取出颜色、字体、间距、圆角统一成一套 Token。之后做新页面直接引用这套规范，再也不会出现"东拼西凑"的感觉。</div>
-          <div class="mini-tags"><span class="mini-tag good">自动提取Token</span><span class="mini-tag good">全局统一</span></div>
-        </div>
+      <div class="pipe-info">
+        <h3>设计系统</h3>
+        <p>统一所有页面颜色、字体、间距。给项目建一套规范，新页面自动一致。</p>
+        <div class="tags"><span class="tag">统一配色</span><span class="tag">暗色模式</span></div>
       </div>
     </div>
 
-    <!-- 场景 3: 动效 -->
-    <div class="scenario-row" data-reveal>
-      <div class="scenario-col">
-        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
-        <div class="col-body">
-          <div class="scenario-label">"页面像 PPT 一样死板，一点动感都没有"</div>
-          <div class="hint">按钮按下没有反馈，切换页面是硬切，加载时只有白屏。想做动效但写动画代码太耗时，试了几次效果都不自然。</div>
-          <div class="mini-tags"><span class="mini-tag bad">生硬死板</span><span class="mini-tag bad">不会写动效</span></div>
-        </div>
+    <div class="pipe-row" data-reveal>
+      <div class="pipe-visual">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
+          <g class="draw-in">
+            <polygon points="30,30 140,80 30,130" fill="none" stroke="#16a085" stroke-width="2.2" stroke-linejoin="round"/>
+            <circle cx="140" cy="80" r="5" fill="#16a085"/>
+            <circle cx="30" cy="30" r="4" fill="#16a085" opacity=".4"/>
+            <circle cx="30" cy="130" r="4" fill="#16a085" opacity=".4"/>
+          </g>
+        </svg>
       </div>
-      <div class="arrow-col">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </div>
-      <div class="scenario-col">
-        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
-        <div class="col-body">
-          <div class="result">你只需要描述感觉："按钮按下要有弹性""卡片滑进来要自然""加载的时候别让用户干等"。它直接给你写好动画代码，缓动曲线、持续时间都调好了。</div>
-          <div class="mini-tags"><span class="mini-tag good">弹性按钮</span><span class="mini-tag good">滚动入场</span><span class="mini-tag good">加载过渡</span></div>
-        </div>
+      <div class="pipe-info">
+        <h3>动效实现</h3>
+        <p>让页面活起来——按钮弹性反馈、卡片自然滑入、毛玻璃面板，告诉它感觉就行。</p>
+        <div class="tags"><span class="tag">弹性按钮</span><span class="tag">滚动入场</span><span class="tag">毛玻璃</span></div>
       </div>
     </div>
 
-    <!-- 场景 4: 配图/图表 -->
-    <div class="scenario-row" data-reveal>
-      <div class="scenario-col">
-        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
-        <div class="col-body">
-          <div class="scenario-label">"这篇文章需要封面图，但找不到合适的素材"</div>
-          <div class="hint">翻遍了 Unsplash 找不到合适的图。公司没有设计师可以帮忙。自己用工具画的图拿不出手。</div>
-          <div class="mini-tags"><span class="mini-tag bad">没图用</span><span class="mini-tag bad">素材不合适</span><span class="mini-tag bad">缺设计师</span></div>
-        </div>
+    <div class="pipe-row" data-reveal>
+      <div class="pipe-visual">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
+          <g class="draw-in">
+            <rect x="16" y="20" width="168" height="120" rx="12" stroke="#16a085" stroke-width="2"/>
+            <circle cx="56" cy="68" r="24" stroke="#1abc9c" stroke-width="2.2"/>
+            <circle cx="56" cy="68" r="7" fill="#16a085" opacity=".3"/>
+            <path d="m 136,76 -30,-26 0,18 -10,-10" stroke="#16a085" stroke-width="2" stroke-linejoin="round" fill="none"/>
+          </g>
+        </svg>
       </div>
-      <div class="arrow-col">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </div>
-      <div class="scenario-col">
-        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
-        <div class="col-body">
-          <div class="result">描述你想要什么风格和主题，直接生成配图。数据分析报告需要图表？把数据给它，生成可视化。复杂流程需要说明？画出清晰的信息图。一句话的事。</div>
-          <div class="mini-tags"><span class="mini-tag good">封面生成</span><span class="mini-tag good">数据图表</span><span class="mini-tag good">信息图</span><span class="mini-tag good">插图</span></div>
-        </div>
+      <div class="pipe-info">
+        <h3>视觉创建</h3>
+        <p>给文字或数据，还你配图、信息图、流程图。写文章要封面？给。PPT 少图？给。</p>
+        <div class="tags"><span class="tag">封面图</span><span class="tag">信息图</span><span class="tag">流程图</span></div>
       </div>
     </div>
 
-    <!-- 场景 5: PPT -->
-    <div class="scenario-row" data-reveal>
-      <div class="scenario-col">
-        <div class="col-head before"><span class="col-dot"></span>你说的话</div>
-        <div class="col-body">
-          <div class="scenario-label">"明天要汇报，PPT 还是白板"</div>
-          <div class="hint">花 3 个小时做出来的 PPT 像实习生水平。排版对不齐、配色辣眼睛、每页长得都不一样。</div>
-          <div class="mini-tags"><span class="mini-tag bad">做PPT耗时</span><span class="mini-tag bad">排版业余</span></div>
-        </div>
+    <div class="pipe-row" data-reveal>
+      <div class="pipe-visual">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 160" fill="none" width="200" height="160" aria-hidden="true">
+          <g class="draw-in">
+            <rect x="20" y="24" width="160" height="112" rx="10" stroke="#16a085" stroke-width="2"/>
+            <line x1="20" y1="48" x2="180" y2="48" stroke="#16a085" stroke-width="1.2" opacity=".25"/>
+            <rect x="42" y="64" width="64" height="20" rx="5" stroke="#1abc9c" stroke-width="2"/>
+            <rect x="118" y="64" width="42" height="20" rx="5" stroke="#16a085" stroke-width="1.5" opacity=".4"/>
+          </g>
+        </svg>
       </div>
-      <div class="arrow-col">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </div>
-      <div class="scenario-col">
-        <div class="col-head after"><span class="col-dot"></span>AI 做的事</div>
-        <div class="col-body">
-          <div class="result">把你的内容大纲给它，整份 PPT 一键生成——每页都有精心设计的排版、配色统一、图表自动生成。支持导出可编辑的 pptx，不满意随时微调。</div>
-          <div class="mini-tags"><span class="mini-tag good">一键生成</span><span class="mini-tag good">可编辑pptx</span><span class="mini-tag good">21套模板</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 场景 6: 拖动对比（Before/After 视觉） -->
-    <div class="scenario-row" data-reveal>
-      <div class="scenario-col">
-        <div class="col-head before"><span class="col-dot"></span>你做出来的页面</div>
-        <div class="col-body">
-          <div class="scenario-label">"组件样式很素，像没被设计过"</div>
-          <div class="hint">颜色各自为政、卡片没有层次感、数字用默认字体看起来廉价、按钮选了蓝色但跟整体不搭。自己觉得"能看"，但给客户看的时候心里没底。</div>
-          <div class="mini-tags"><span class="mini-tag bad">颜色混乱</span><span class="mini-tag bad">无层级</span><span class="mini-tag bad">廉价感</span></div>
-        </div>
-      </div>
-      <div class="arrow-col">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </div>
-      <div class="scenario-col">
-        <div class="col-head after"><span class="col-dot"></span>AI 帮你改之后</div>
-        <div class="col-body">
-          <div class="result">统一品牌色、建立卡片层级（品牌色顶边 + 微阴影）、数字启用等宽字体不再跳动、按钮换成匹配的绿色。现在你觉得"能发给客户看了"。</div>
-          <div class="mini-tags"><span class="mini-tag good">品牌色统一</span><span class="mini-tag good">等宽数字</span><span class="mini-tag good">层次清晰</span></div>
-        </div>
+      <div class="pipe-info">
+        <h3>更多能力</h3>
+        <p>一键生成 PPT、无障碍检查、Figma 双向同步、代码直出 React/Tailwind 组件。</p>
+        <div class="tags"><span class="tag">PPT生成</span><span class="tag">Figma</span><span class="tag">代码直出</span></div>
       </div>
     </div>
 
