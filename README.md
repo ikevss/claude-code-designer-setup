@@ -1,8 +1,8 @@
-# 🎨 Claude Code Designer Pack v2.0
+# 🎨 Design SkillHub v2.0
 
-> **130+ 个设计/动效/视觉/系统 skill，一键安装，全部中文触发。**
+> **130+ 个设计/动效/视觉/系统 skill，通用型 AI 编码 Agent 可复用，全部中文触发。**
 >
-> 装完就能说中文让 AI 做设计——"审查这个页面""帮我建暗色模式""滚到这里把元素钉住""生成一张橙线风插图"。
+> 不管是 Claude Code、Codex、TRAE Work、Cursor、Gemini CLI、Qoder、WorkBuddy 还是 QwenWork——只要你的 Agent 能读 Markdown/SKILL.md，它就能用。
 > 
 > 🌐 **[官方网站](https://ikevss.github.io/claude-code-designer-setup/)**
 
@@ -11,11 +11,25 @@
 ## 30 秒安装
 
 ```bash
-git clone https://github.com/ikevss/claude-code-designer-setup.git ~/claude-designer
-cd ~/claude-designer && bash designer-setup.sh
+git clone https://github.com/ikevss/claude-code-designer-setup.git ~/design-skillhub
+cd ~/design-skillhub && bash designer-setup.sh
 ```
 
-重启 Claude Code，说中文做设计。
+安装脚本默认部署到 `~/.claude/skills/`（Claude Code）。**其他 Agent 用户**：手动复制 `skills/` 目录到你 Agent 的 skill 路径即可——
+
+| Agent | Skill 目录 |
+|-------|-----------|
+| Claude Code | `~/.claude/skills/` |
+| Codex | `~/.codex/skills/` |
+| TRAE Work | `~/.trae/skills/` |
+| OpenCode | `~/.config/opencode/skills/` |
+| Cursor | `~/.cursor/skills/` |
+| Gemini CLI | `~/.gemini/antigravity/skills/` |
+| WorkBuddy | `~/.workbuddy/skills/` |
+| QwenWork/Qoder | `~/.qoder/skills/` |
+| Windsurf | `~/.codeium/windsurf/skills/` |
+
+每个 skill 都是标准 Markdown（SKILL.md + references），零平台依赖。
 
 ---
 
@@ -100,7 +114,7 @@ cd ~/claude-designer && bash designer-setup.sh
 
 ## 依赖
 
-- Claude Code 已安装
+- 任意支持 Markdown/SKILL.md 规范的 AI 编码 Agent
 - Node.js ≥ 22（idesign 检测器建议）
 - 无需 API Key（生图类需要自行配置 .env）
 
