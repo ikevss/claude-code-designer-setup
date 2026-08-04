@@ -129,7 +129,7 @@
   .install-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:40px;max-width:760px;box-shadow:var(--shadow-sm)}
   .install-card h3{font-size:1rem;font-weight:700;margin-bottom:6px}
   .install-card h3:not(:first-child){margin-top:28px}
-  .install-card code{display:block;background:var(--surface);padding:18px 24px;border-radius:var(--radius-sm);font-family:"SF Mono","Fira Code","Cascadia Code",monospace;font-size:.9rem;color:var(--text);margin:12px 0;overflow-x:auto;border:1px solid var(--border)}
+  .install-card code{display:block;background:var(--accent-bg);padding:28px 28px;border-radius:14px;font-size:1.08rem;color:var(--text);text-align:center;overflow-x:auto;border:2px solid rgba(22,160,133,.12);font-family:"SF Pro Display","PingFang SC",sans-serif;line-height:1.7}
   .install-notes{margin-top:24px;color:var(--text-dim);font-size:.88rem;display:flex;gap:24px;flex-wrap:wrap}
 
   /* ═══ 表格 ═══ */
@@ -495,16 +495,12 @@
   <div class="container">
     <div class="section-label">Getting started</div>
     <h2 class="section-title" id="install-title">安装</h2>
-    <p class="section-desc">一条命令，30 秒。装完重启你的 AI 工具就能用。</p>
+    <p class="section-desc">直接把下面这句话发给你的 AI 工具，它会帮你装好。</p>
     <div class="install-card">
-      <h3>Git Clone（推荐，可随时 git pull 更新）</h3>
-      <code>git clone https://github.com/ikevss/design-skillhub.git ~/design-skillhub<br>cd ~/design-skillhub && bash designer-setup.sh</code>
-      <h3>离线包</h3>
-      <code>tar xzf design-skillhub-*.tar.gz<br>cd design-skillhub-* && bash designer-setup.sh</code>
+      <code style="font-size:1.1rem;padding:24px 28px;text-align:center;color:var(--text)">帮我安装 Design SkillHub，GitHub 地址是 https://github.com/ikevss/design-skillhub</code>
       <div class="install-notes">
-        <span>安装后重启 AI 工具</span>
-        <span>无需 API Key</span>
-        <span>纯本地，不修改系统</span>
+        <span>装完重启一下 AI 工具就行了</span>
+        <span>不用注册 · 不用付费 · 不用改任何设置</span>
       </div>
     </div>
   </div>
